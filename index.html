@@ -1,0 +1,716 @@
+#<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Margaux Isambert — Junior UX/UI Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#FFFFFF;--bg-warm:#F7F6F3;--bg-tint:#F2F0EC;--border:#E8E5DF;--border-md:#D4D0C8;--text:#1A1917;--text-2:#5C5952;--text-3:#9E9A91;--accent:#E8604C;--accent-bg:#FEF2F0;--serif:'Lora',Georgia,serif;--sans:'Plus Jakarta Sans',system-ui,sans-serif;--nav-h:68px;--max-w:1160px;--ease:cubic-bezier(.25,.46,.45,.94);--eout:cubic-bezier(.16,1,.3,1);--gap-xs:.4rem;--gap-sm:.85rem;--gap-md:1.75rem;--gap-lg:3.5rem;--gap-xl:6rem;--gap-xxl:10rem;--r-sm:4px;--r-md:8px;--r-lg:14px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.65;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}a{color:inherit;text-decoration:none}ul,ol{list-style:none}button{font-family:inherit;cursor:pointer;border:none;background:none}strong{font-weight:600}em{font-style:italic}
+/* NAV */
+.site-nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);background:transparent;border-bottom:1px solid transparent;z-index:300;display:flex;align-items:center;transition:background .35s,border-color .35s}
+.site-nav.scrolled,.site-nav.opaque{background:rgba(255,255,255,.95);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom-color:var(--border)}
+.nav-inner{width:100%;max-width:var(--max-w);margin:0 auto;padding:0 var(--gap-lg);display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:var(--serif);font-size:.95rem;font-weight:400;color:#fff;cursor:pointer;letter-spacing:-.01em;text-shadow:0 1px 8px rgba(0,0,0,.45);transition:opacity .15s}
+.site-nav.scrolled .nav-logo,.site-nav.opaque .nav-logo{color:var(--text);text-shadow:none}
+.nav-logo:hover{opacity:.7}
+.nav-right{display:flex;gap:var(--gap-lg);align-items:center}
+.nav-links{display:flex;gap:var(--gap-lg);align-items:center}
+.nav-link{font-size:.78rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.88);padding:0;transition:color .15s;position:relative;text-shadow:0 1px 6px rgba(0,0,0,.3)}
+.nav-link::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1.5px;background:#fff;transform:scaleX(0);transition:transform .18s var(--ease);transform-origin:left}
+.site-nav.scrolled .nav-link,.site-nav.opaque .nav-link{color:var(--text-3);text-shadow:none}
+.site-nav.scrolled .nav-link::after,.site-nav.opaque .nav-link::after{background:var(--accent)}
+.nav-link:hover,.nav-link.active{color:#fff}
+.site-nav.scrolled .nav-link:hover,.site-nav.opaque .nav-link:hover,.site-nav.scrolled .nav-link.active,.site-nav.opaque .nav-link.active{color:var(--text)}
+.nav-link.active::after,.nav-link:hover::after{transform:scaleX(1)}
+.lang-sw{display:flex;align-items:center;border:1.5px solid rgba(255,255,255,.5);border-radius:100px;overflow:hidden;transition:border-color .35s}
+.site-nav.scrolled .lang-sw,.site-nav.opaque .lang-sw{border-color:var(--border-md)}
+.lang-btn{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.32rem .72rem;color:rgba(255,255,255,.7);background:transparent;transition:color .15s,background .15s;line-height:1}
+.site-nav.scrolled .lang-btn,.site-nav.opaque .lang-btn{color:var(--text-3)}
+.lang-btn.active{background:#fff;color:var(--text)}
+.site-nav.scrolled .lang-btn.active,.site-nav.opaque .lang-btn.active{background:var(--accent);color:#fff}
+.lang-btn:not(.active):hover{color:#fff}
+.site-nav.scrolled .lang-btn:not(.active):hover,.site-nav.opaque .lang-btn:not(.active):hover{color:var(--text)}
+/* PAGE SYSTEM */
+.page-wrap{padding-top:0}.page{display:none}
+.page.active{display:block;animation:fadeIn .25s var(--ease) both}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+#page-work.active,#page-about.active,#page-contact.active,#page-cs1.active,#page-cs2.active,#page-cs3.active{padding-top:var(--nav-h)}
+/* LAYOUT */
+.container{max-width:var(--max-w);margin:0 auto;padding:0 var(--gap-lg)}
+.container--narrow{max-width:860px;margin:0 auto;padding:0 var(--gap-lg)}
+.t-overline{font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3)}
+.t-h1{font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);font-weight:400;line-height:1.15;letter-spacing:-.02em}
+.t-h2{font-family:var(--serif);font-size:clamp(1.3rem,2.5vw,1.8rem);font-weight:400;line-height:1.25;letter-spacing:-.015em}
+.t-body-sm{font-size:.9rem;line-height:1.75;color:var(--text-2)}
+.tag{display:inline-block;font-size:.62rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:.28rem .72rem;border-radius:100px;border:1px solid var(--border);color:var(--text-3);background:var(--bg)}
+.tag--accent{border-color:rgba(232,96,76,.3);color:var(--accent);background:var(--accent-bg)}
+.btn{display:inline-flex;align-items:center;gap:.45rem;padding:.72rem 1.5rem;font-size:.78rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;border-radius:var(--r-sm);cursor:pointer;transition:all .16s var(--ease);line-height:1;border:none}
+.btn--primary{background:var(--accent);color:#fff;border:1.5px solid var(--accent)}
+.btn--primary:hover{background:#d04f3c;border-color:#d04f3c;transform:translateY(-1px)}
+.btn--ghost{background:rgba(255,255,255,.18);color:#fff;border:1.5px solid rgba(255,255,255,.45);backdrop-filter:blur(4px)}
+.btn--ghost:hover{background:rgba(255,255,255,.3);transform:translateY(-1px)}
+.img-ph{background:var(--bg-tint);border:1.5px dashed var(--border-md);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;color:var(--text-3);font-size:.72rem;font-style:italic;text-align:center;padding:var(--gap-md)}
+/* HERO */
+.hero{position:relative;width:100%;height:100svh;min-height:600px;overflow:hidden;background:#4eadcb}
+.hero__media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:right center;display:block}
+.hero__svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:5}
+.cline{fill:none;stroke:rgba(255,255,255,.55);stroke-width:1.5;stroke-linecap:round;transition:stroke .2s,opacity .2s}
+.cline.hot{stroke:var(--accent);opacity:.95}
+/* DOTS */
+.cdot{position:absolute;pointer-events:all;cursor:pointer;z-index:10;transform:translate(-50%,-50%)}
+.cdot__ring{width:14px;height:14px;border-radius:50%;background:#fff;border:2.5px solid var(--accent);box-shadow:0 0 0 5px rgba(232,96,76,.22),0 2px 10px rgba(0,0,0,.25);transition:transform .22s var(--eout),box-shadow .22s;animation:dotPulse 2.8s ease-in-out infinite}
+@keyframes dotPulse{0%,100%{box-shadow:0 0 0 5px rgba(232,96,76,.22),0 2px 10px rgba(0,0,0,.25)}50%{box-shadow:0 0 0 9px rgba(232,96,76,.1),0 2px 10px rgba(0,0,0,.25)}}
+.cdot:hover .cdot__ring{transform:scale(1.45);box-shadow:0 0 0 9px rgba(232,96,76,.18),0 4px 16px rgba(0,0,0,.3);animation:none}
+.cdot__tip{position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(5px);background:#fff;border:1.5px solid var(--border);border-radius:100px;padding:.38rem .9rem;display:flex;align-items:center;gap:.45rem;white-space:nowrap;box-shadow:0 4px 18px rgba(0,0,0,.12);opacity:0;pointer-events:none;transition:opacity .18s var(--ease),transform .18s var(--ease)}
+.cdot:hover .cdot__tip{opacity:1;transform:translateX(-50%) translateY(0)}
+.cdot__tip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:#fff;margin-top:-1px}
+.cdot__tip::before{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:var(--border)}
+.cdot__tip-num{font-size:.6rem;font-weight:700;color:var(--accent);background:var(--accent-bg);border-radius:100px;padding:.15rem .45rem;letter-spacing:.06em}
+.cdot__tip-lbl{font-size:.7rem;font-weight:600;color:var(--text)}
+.cdot__tip--flip{bottom:auto;top:calc(100% + 10px);transform:translateX(-50%) translateY(-5px)}
+.cdot:hover .cdot__tip--flip{transform:translateX(-50%) translateY(0)}
+.cdot__tip--flip::after{top:auto;bottom:100%;border-top-color:transparent;border-bottom-color:#fff;margin-top:0;margin-bottom:-1px}
+.cdot__tip--flip::before{top:auto;bottom:100%;border-top-color:transparent;border-bottom-color:var(--border)}
+/* INTRO PANEL */
+.hero__intro{position:absolute;top:0;left:0;bottom:0;width:clamp(280px,33%,420px);display:flex;flex-direction:column;justify-content:center;padding:calc(var(--nav-h) + 2.5rem) 3rem 3rem 3rem;background:linear-gradient(108deg,rgba(255,255,255,.76) 0%,rgba(255,255,255,.55) 58%,rgba(255,255,255,0) 100%);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);z-index:8;pointer-events:none}
+.hero__intro > *{pointer-events:all}
+.hero__avail{display:inline-flex;align-items:center;gap:.45rem;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:1.1rem}
+.hero__avail::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--accent);animation:blink 2.4s ease-in-out infinite;flex-shrink:0}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.8)}}
+.hero__profile{display:flex;align-items:center;gap:.85rem;margin-bottom:1.2rem}
+.hero__avatar{width:50px;height:50px;border-radius:50%;overflow:hidden;border:2.5px solid #fff;box-shadow:0 2px 12px rgba(0,0,0,.14);flex-shrink:0;background:var(--bg-tint);display:flex;align-items:center;justify-content:center;font-size:.45rem;color:var(--text-3)}
+.hero__avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.hero__pname{font-family:var(--serif);font-size:.95rem;line-height:1.2;color:var(--text)}
+.hero__prole{font-size:.65rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--text-3);margin-top:.15rem}
+.hero__h1{font-family:var(--serif);font-size:clamp(1.6rem,2.9vw,2.5rem);font-weight:400;line-height:1.15;letter-spacing:-.02em;color:var(--text);margin-bottom:.9rem}
+.hero__h1 em{font-style:italic;color:var(--text-3)}
+.hero__sub{font-size:.88rem;line-height:1.75;color:var(--text-2);max-width:290px;margin-bottom:1.5rem}
+.hero__chips{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1.5rem}
+.hchip{display:flex;align-items:center;gap:.5rem;font-size:.71rem;color:var(--text-2)}
+.hchip__k{font-size:.57rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);min-width:54px}
+.hero__cta{display:flex;gap:.6rem;flex-wrap:wrap}
+.hero__scroll{position:absolute;bottom:1.5rem;right:2.5rem;display:flex;flex-direction:column;align-items:center;gap:.4rem;pointer-events:none;opacity:.5;z-index:9}
+.hero__scroll span{font-size:.57rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.3);writing-mode:vertical-rl}
+.scroll-ln{width:1.5px;height:28px;background:#fff;animation:scrollAnim 1.8s ease-in-out infinite;transform-origin:top}
+@keyframes scrollAnim{0%{transform:scaleY(0);opacity:0}40%{opacity:1}100%{transform:scaleY(1);opacity:0}}
+/* WORK */
+.work-page{padding:var(--gap-xl) 0 var(--gap-xxl)}
+.work-header{padding-bottom:var(--gap-lg);border-bottom:1px solid var(--border);margin-bottom:var(--gap-lg)}
+.wli{display:grid;grid-template-columns:52px 1fr auto;gap:0 var(--gap-lg);align-items:start;padding:var(--gap-lg) 0;border-bottom:1px solid var(--border);cursor:pointer}
+.wli:hover .wli__title{color:var(--accent)}.wli:hover .wli__arr{transform:translate(4px,-4px);color:var(--text)}
+.wli__num{font-family:var(--serif);font-size:2rem;font-weight:400;color:var(--border-md);line-height:1;padding-top:.3rem}
+.wli__tags{display:flex;gap:.3rem;flex-wrap:wrap;margin-bottom:.5rem}
+.wli__title{font-family:var(--serif);font-size:clamp(1.15rem,2.2vw,1.55rem);font-weight:400;letter-spacing:-.01em;color:var(--text);transition:color .15s;margin-bottom:.35rem}
+.wli__desc{font-size:.875rem;color:var(--text-3);line-height:1.65;max-width:500px}
+.wli__arr{font-size:.95rem;color:var(--text-3);transition:transform .18s var(--ease),color .15s;padding-top:.5rem}
+/* CASE STUDY */
+.cs-cover{width:100%;aspect-ratio:16/6;overflow:hidden;background:var(--bg-tint)}
+.cs-cover .img-ph{width:100%;height:100%;border-radius:0;border:none;font-size:.75rem}
+.cs-hdr{padding:var(--gap-xl) 0 var(--gap-lg);border-bottom:1px solid var(--border)}
+.cs-hdr .container--narrow{display:grid;grid-template-columns:1fr 240px;gap:var(--gap-xl);align-items:start}
+.cs-back{font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);display:inline-flex;align-items:center;gap:.4rem;margin-bottom:var(--gap-lg);transition:color .15s,gap .15s;cursor:pointer;padding:0}
+.cs-back:hover{color:var(--text);gap:.6rem}
+.cs-tags{display:flex;gap:var(--gap-xs);flex-wrap:wrap;margin-bottom:var(--gap-md)}
+.cs-meta{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap-sm) var(--gap-md);padding:var(--gap-md);background:var(--bg-warm);border:1px solid var(--border);border-radius:var(--r-md)}
+.cs-meta__item{display:flex;flex-direction:column;gap:.2rem}
+.cs-meta__lbl{font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3)}
+.cs-meta__val{font-size:.82rem;font-weight:500;color:var(--text-2)}
+.cs-body{padding:var(--gap-xl) 0 var(--gap-xxl)}
+.cs-prose{max-width:1000px;margin:0 auto;padding:0 var(--gap-lg);display:grid;grid-template-columns:1fr 220px;gap:0 var(--gap-xl);align-items:start}
+.cs-sec{margin-bottom:var(--gap-xl);padding-bottom:var(--gap-xl);border-bottom:1px solid var(--border)}
+.cs-sec:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.cs-sec__over{font-size:.64rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:.5rem;margin-bottom:var(--gap-sm)}
+.cs-sec__over span{font-family:var(--serif);font-size:1rem;font-weight:400;color:var(--border-md);font-style:normal;letter-spacing:0;text-transform:none}
+.cs-sec__h{margin-bottom:var(--gap-md);color:var(--text)}
+.cs-sec p{font-size:.97rem;line-height:1.82;color:var(--text-2);margin-bottom:var(--gap-md)}
+.cs-sec p:last-child{margin-bottom:0}.cs-sec strong{color:var(--text)}
+.cs-pq{border-left:3px solid var(--accent);padding:var(--gap-md) var(--gap-lg);background:var(--accent-bg);border-radius:0 var(--r-md) var(--r-md) 0;margin:var(--gap-lg) 0}
+.cs-pq p{font-family:var(--serif);font-size:1.08rem;font-style:italic;line-height:1.65;color:var(--text);margin:0}
+.method-g,.insight-g,.module-g{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap-sm);margin:var(--gap-lg) 0}
+.method-item,.insight-c,.module-item{padding:var(--gap-md);background:var(--bg-warm);border:1px solid var(--border);border-radius:var(--r-md)}
+.insight-c{background:var(--bg);transition:border-color .15s,box-shadow .15s}
+.insight-c:hover{border-color:var(--border-md);box-shadow:0 3px 16px rgba(26,25,23,.06)}
+.mi-icon{font-size:1.4rem;margin-bottom:.6rem}.mi-title{font-size:.82rem;font-weight:600;color:var(--text);margin-bottom:.25rem}
+.mi-desc{font-size:.78rem;color:var(--text-3);line-height:1.6}
+.ins-num{font-family:var(--serif);font-size:1.8rem;font-weight:400;color:var(--border);line-height:1;margin-bottom:.6rem}
+.ins-body{font-size:.87rem;color:var(--text-2);line-height:1.7}.ins-body strong{color:var(--text)}
+.step-list{display:flex;flex-direction:column;gap:0;margin:var(--gap-lg) 0;counter-reset:steps}
+.step-item{display:grid;grid-template-columns:2.5rem 1fr;gap:var(--gap-sm);padding:var(--gap-md) 0;border-bottom:1px solid var(--border);counter-increment:steps}
+.step-item:first-child{border-top:1px solid var(--border)}
+.step-item::before{content:counter(steps,decimal-leading-zero);font-family:var(--serif);font-size:.75rem;font-weight:400;color:var(--accent);padding-top:.2rem}
+.step-item p{font-size:.9rem;color:var(--text-2);line-height:1.75;margin:0}
+.margin-note{position:sticky;top:calc(var(--nav-h) + var(--gap-lg));background:var(--bg-tint);border-left:2px solid var(--accent);padding:var(--gap-sm) var(--gap-md);border-radius:0 var(--r-sm) var(--r-sm) 0;margin-bottom:var(--gap-lg)}
+.margin-note p{font-size:.78rem;font-style:italic;color:var(--text-2);line-height:1.65;margin:0}
+.margin-note__lbl{font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:.35rem;display:block}
+/* ABOUT */
+.about-page{padding:var(--gap-xl) 0 var(--gap-xxl)}
+.about-g{max-width:var(--max-w);margin:0 auto;padding:0 var(--gap-lg);display:grid;grid-template-columns:260px 1fr;gap:var(--gap-xl);align-items:start}
+.about-photo{width:100%;border-radius:var(--r-lg);overflow:hidden;position:sticky;top:calc(var(--nav-h) + var(--gap-lg))}
+.about-photo .img-ph{aspect-ratio:3/4;border:none;border-radius:0}
+.about-intro{font-family:var(--serif);font-size:clamp(1.3rem,2.5vw,1.75rem);font-weight:400;line-height:1.45;color:var(--text);letter-spacing:-.015em;margin-bottom:var(--gap-lg)}
+.about-body p{font-size:.97rem;color:var(--text-2);line-height:1.8}
+.about-body p+p{margin-top:var(--gap-md)}
+.skills-block{margin-top:var(--gap-xl);padding-top:var(--gap-lg);border-top:1px solid var(--border)}
+.skills-block__hdr{margin-bottom:var(--gap-lg)}
+.skills-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap-lg)}
+.skill-col__lbl{font-size:.62rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:var(--gap-sm);padding-bottom:var(--gap-sm);border-bottom:1px solid var(--border)}
+.skill-col li{font-size:.84rem;color:var(--text-2);padding:.32rem 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.45rem}
+.skill-col li::before{content:"—";color:var(--border-md);font-size:.7rem}
+.cv-block{margin-top:var(--gap-xl);padding-top:var(--gap-lg);border-top:1px solid var(--border);display:flex;align-items:center;gap:var(--gap-lg);flex-wrap:wrap}
+.cv-block p{font-size:.9rem;color:var(--text-3);max-width:380px;line-height:1.7;margin:0}
+/* CONTACT */
+.contact-page{padding:var(--gap-xl) 0 var(--gap-xxl)}
+.contact-g{max-width:var(--max-w);margin:0 auto;padding:0 var(--gap-lg);display:grid;grid-template-columns:1fr 1fr;gap:var(--gap-xl);align-items:start;margin-top:var(--gap-xl)}
+.contact-h{font-family:var(--serif);font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:400;line-height:1.3;letter-spacing:-.02em;color:var(--text);margin-bottom:var(--gap-md)}
+.contact-h em{font-style:italic;color:var(--text-3)}
+.cl-row{display:flex;justify-content:space-between;align-items:center;padding:var(--gap-md) 0;border-bottom:1px solid var(--border);text-decoration:none;color:inherit;transition:all .15s}
+.cl-row:first-child{border-top:1px solid var(--border)}
+.cl-row:hover .cl-lbl{color:var(--accent)}.cl-row:hover .cl-arr{transform:translate(4px,-4px);color:var(--text)}
+.cl-lbl{font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);transition:color .15s}
+.cl-val{font-size:.9rem;color:var(--text-2)}.cl-arr{color:var(--text-3);transition:transform .18s var(--ease),color .15s;font-size:.9rem}
+/* FOOTER */
+.site-footer{border-top:1px solid var(--border);padding:var(--gap-lg) 0;background:var(--bg-warm)}
+.footer-in{max-width:var(--max-w);margin:0 auto;padding:0 var(--gap-lg);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--gap-sm)}
+.footer-name{font-family:var(--serif);font-size:.9rem;font-weight:400}
+.footer-note{font-size:.75rem;color:var(--text-3)}
+/* RESPONSIVE */
+@media(max-width:960px){:root{--gap-xl:4rem;--gap-xxl:7rem}.cs-prose{grid-template-columns:1fr}.cs-margin{display:none}.cs-hdr .container--narrow{grid-template-columns:1fr;gap:var(--gap-lg)}.about-g{grid-template-columns:200px 1fr;gap:var(--gap-lg)}.skills-cols{grid-template-columns:1fr 1fr;gap:var(--gap-md)}.contact-g{grid-template-columns:1fr;gap:var(--gap-lg);margin-top:var(--gap-lg)}.hero__intro{width:clamp(250px,48%,360px)}}
+@media(max-width:768px){:root{--gap-xl:3rem;--gap-xxl:5rem;--gap-lg:2.25rem}.nav-inner,.container,.container--narrow{padding:0 1.25rem}.nav-right{gap:1.25rem}.nav-links{gap:1.25rem}.hero__intro{width:100%;bottom:auto;padding:calc(var(--nav-h) + 1.5rem) 1.5rem 2.5rem;background:linear-gradient(to bottom,rgba(255,255,255,.82) 0%,rgba(255,255,255,.55) 65%,rgba(255,255,255,0) 100%);backdrop-filter:none}.hero__h1{font-size:clamp(1.4rem,5vw,2rem)}.hero__sub,.hero__chips{display:none}.wli{grid-template-columns:40px 1fr auto;gap:0 1.25rem}.wli__num{font-size:1.5rem}.insight-g,.method-g,.module-g{grid-template-columns:1fr}.about-g{grid-template-columns:1fr}.about-photo{width:120px;aspect-ratio:1;border-radius:50%;position:static}.about-photo .img-ph{aspect-ratio:1}.skills-cols{grid-template-columns:1fr 1fr}.footer-in{flex-direction:column;align-items:flex-start}}
+@media(max-width:540px){:root{--gap-xl:2.25rem;--gap-lg:1.75rem;--gap-md:1.25rem}.nav-links{gap:1rem}.nav-link{font-size:.7rem}.wli{grid-template-columns:36px 1fr auto;gap:0 .75rem;padding:var(--gap-md) 0}.wli__title{font-size:1rem}.cs-meta{grid-template-columns:1fr 1fr}.skills-cols{grid-template-columns:1fr}.lang-btn{padding:.28rem .55rem}.cdot__tip{display:none}}
+</style>
+</head>
+<body>
+
+<nav class="site-nav" id="site-nav">
+  <div class="nav-inner">
+    <button class="nav-logo" data-page="home">Margaux Isambert</button>
+    <div class="nav-right">
+      <div class="nav-links">
+        <button class="nav-link" data-page="work" data-i18n="nav.work">Work</button>
+        <button class="nav-link" data-page="about" data-i18n="nav.about">About</button>
+        <button class="nav-link" data-page="contact" data-i18n="nav.contact">Contact</button>
+      </div>
+      <div class="lang-sw">
+        <button class="lang-btn active" data-lang="en" aria-pressed="true">EN</button>
+        <button class="lang-btn" data-lang="fr" aria-pressed="false">FR</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+<!-- HOME -->
+<div id="page-home" class="page">
+  <section class="hero">
+    <!-- DOT POSITIONS (fine-tune left/top % if needed):
+         Hat left:63% top:25% | Glasses left:57% top:50% | Shoe left:79% top:88% -->
+    <video class="hero__media" id="hero-media" autoplay loop muted playsinline>
+      <source src="hero.mp4" type="video/mp4">
+    </video>
+
+    <svg class="hero__svg" id="hero-svg" aria-hidden="true"></svg>
+
+    <!-- DOT 1 — HAT — links to Interior Design project -->
+    <div class="cdot" id="cdot-hat" style="left:69%;top:37%"
+         data-char-x="82" data-char-y="54" data-page="cs1"
+         role="button" tabindex="0">
+      <div class="cdot__ring"></div>
+      <div class="cdot__tip">
+        <span class="cdot__tip-num">01</span>
+        <span class="cdot__tip-lbl" data-i18n="cs1.dot">Interior Design PM</span>
+      </div>
+    </div>
+
+    <!-- DOT 2 — GLASSES — links to YUHWA project -->
+    <div class="cdot" id="cdot-glasses" style="left:58%;top:66%"
+         data-char-x="82" data-char-y="54" data-page="cs2"
+         role="button" tabindex="0">
+      <div class="cdot__ring"></div>
+      <div class="cdot__tip">
+        <span class="cdot__tip-num">02</span>
+        <span class="cdot__tip-lbl" data-i18n="cs2.dot">YUHWA K-Beauty</span>
+      </div>
+    </div>
+
+    <!-- DOT 3 — SHOE — links to Botani'Kube (tooltip flips up because near bottom edge) -->
+    <div class="cdot" id="cdot-shoe" style="left:79%;top:93%"
+         data-char-x="82" data-char-y="54" data-page="cs3"
+         role="button" tabindex="0">
+      <div class="cdot__ring"></div>
+      <div class="cdot__tip cdot__tip--flip">
+        <span class="cdot__tip-num">03</span>
+        <span class="cdot__tip-lbl" data-i18n="cs3.dot">Botani&apos;Kube</span>
+      </div>
+    </div>
+
+    <!-- LEFT INTRO PANEL -->
+    <div class="hero__intro">
+      <p class="hero__avail" data-i18n="hero.avail">Available &middot; 2026</p>
+      <div class="hero__profile">
+        <!-- Replace inner div with: <img src="assets/profile.jpg" alt="Margaux"> -->
+        <div class="hero__avatar">Photo</div>
+        <div>
+          <div class="hero__pname">Margaux Isambert</div>
+          <div class="hero__prole" data-i18n="hero.role">Junior UX/UI Designer</div>
+        </div>
+      </div>
+      <h1 class="hero__h1" data-i18n="hero.h1">Designing experiences<br/>that make <em>business sense</em>.</h1>
+      <p class="hero__sub" data-i18n="hero.sub">A Junior UX/UI Designer with a marketing strategy background. Working at the intersection of user research, product thinking, and brand logic.</p>
+      <div class="hero__chips">
+        <div class="hchip"><span class="hchip__k" data-i18n="chip.based">Based</span><span data-i18n="chip.basedV">France &middot; EU</span></div>
+        <div class="hchip"><span class="hchip__k" data-i18n="chip.tools">Tools</span><span>Figma &middot; Adobe CC &middot; Notion</span></div>
+        <div class="hchip"><span class="hchip__k" data-i18n="chip.open">Open to</span><span data-i18n="chip.openV">Junior roles &middot; Internships</span></div>
+      </div>
+      <div class="hero__cta">
+        <button class="btn btn--primary" data-page="work" data-i18n="hero.cta1">View my work</button>
+        <button class="btn btn--ghost" data-page="about" data-i18n="hero.cta2">About me</button>
+      </div>
+    </div>
+
+    <div class="hero__scroll" aria-hidden="true">
+      <span data-i18n="hero.scroll">Scroll</span>
+      <div class="scroll-ln"></div>
+    </div>
+  </section>
+</div>
+
+<!-- WORK LIST -->
+<div id="page-work" class="page">
+  <div class="work-page">
+    <div class="container">
+      <div class="work-header">
+        <span class="t-overline" style="display:block;margin-bottom:.75rem" data-i18n="nav.work">Work</span>
+        <h1 class="t-h1" data-i18n="work.h">Projects</h1>
+        <p class="t-body-sm" style="max-width:440px;margin-top:.75rem" data-i18n="work.sub">UX design and brand strategy, each project structured around a problem to solve, documented in full.</p>
+      </div>
+      <div class="wli" data-page="cs1" role="button" tabindex="0">
+        <span class="wli__num">01</span>
+        <div>
+          <div class="wli__tags">
+            <span class="tag tag--accent" data-i18n="tag.uxcs">UX Case Study</span>
+            <span class="tag" data-i18n="tag.res">Research</span>
+            <span class="tag" data-i18n="tag.proto">Prototype</span>
+            <span class="tag" data-i18n="tag.solo">Solo</span>
+          </div>
+          <h2 class="wli__title" data-i18n="cs1.title">Interior Design Project Management Platform</h2>
+          <p class="wli__desc" data-i18n="cs1.wdesc">Studio observation, informal interviews, competitive analysis, through to a mid-fidelity Figma prototype. Centred on client transparency and reducing designer administrative overhead.</p>
+        </div>
+        <span class="wli__arr">&nearr;</span>
+      </div>
+      <div class="wli" data-page="cs2" role="button" tabindex="0">
+        <span class="wli__num">02</span>
+        <div>
+          <div class="wli__tags">
+            <span class="tag" data-i18n="tag.brand">Brand Strategy</span>
+            <span class="tag" data-i18n="tag.uxr">UX Research</span>
+            <span class="tag" data-i18n="tag.pc">Product Concept</span>
+            <span class="tag" data-i18n="tag.solo">Solo</span>
+          </div>
+          <h2 class="wli__title" data-i18n="cs2.title">YUHWA &mdash; K-Beauty Brand Concept</h2>
+          <p class="wli__desc" data-i18n="cs2.wdesc">Competitive analysis and positioning gap identification for a premium K-beauty brand bridging Korean skincare heritage with scientific credibility.</p>
+        </div>
+        <span class="wli__arr">&nearr;</span>
+      </div>
+      <div class="wli" data-page="cs3" role="button" tabindex="0">
+        <span class="wli__num">03</span>
+        <div>
+          <div class="wli__tags">
+            <span class="tag" data-i18n="tag.ps">Product Strategy</span>
+            <span class="tag" data-i18n="tag.mr">Market Research</span>
+            <span class="tag" data-i18n="tag.t4">Team &middot; 4 people</span>
+          </div>
+          <h2 class="wli__title" data-i18n="cs3.title">Botani&apos;Kube &mdash; Smart Indoor Garden</h2>
+          <p class="wli__desc" data-i18n="cs3.wdesc">Market gap analysis, user insight research, and product concept for an autonomous smart garden addressing plant care anxiety in urban households.</p>
+        </div>
+        <span class="wli__arr">&nearr;</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CASE STUDY 1 -->
+<div id="page-cs1" class="page">
+  <div class="cs-cover"><div class="img-ph" style="height:280px">[ Cover &mdash; assets/cs1-cover.jpg ]</div></div>
+  <div class="cs-hdr">
+    <div class="container--narrow">
+      <div>
+        <button class="cs-back" data-page="work" data-i18n="cs.back">&larr; Back to work</button>
+        <div class="cs-tags">
+          <span class="tag tag--accent" data-i18n="tag.uxcs">UX Case Study</span>
+          <span class="tag" data-i18n="tag.concept">Concept project</span>
+          <span class="tag" data-i18n="tag.solo">Solo</span>
+        </div>
+        <h1 class="t-h1" style="margin-bottom:var(--gap-lg)" data-i18n="cs1.title">Interior Design Project Management Platform</h1>
+      </div>
+      <div class="cs-meta">
+        <div class="cs-meta__item"><span class="cs-meta__lbl" data-i18n="m.role">My Role</span><span class="cs-meta__val" data-i18n="cs1.role">UX Researcher &amp; Designer</span></div>
+        <div class="cs-meta__item"><span class="cs-meta__lbl" data-i18n="m.tools">Tools</span><span class="cs-meta__val">Figma &middot; Notion</span></div>
+        <div class="cs-meta__item"><span class="cs-meta__lbl" data-i18n="m.type">Type</span><span class="cs-meta__val" data-i18n="cs1.type">Concept / Portfolio</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="cs-body">
+    <div class="cs-prose">
+      <div class="cs-main">
+        <div class="cs-sec">
+          <div class="cs-sec__over"><span>01</span><span data-i18n="s.ctx">Context</span></div>
+          <h2 class="t-h2 cs-sec__h" data-i18n="cs1.s1h">The landscape</h2>
+          <p data-i18n="cs1.s1p1">Interior architecture projects involve many actors: designers, clients, contractors, suppliers and manufacturers. Projects can last several months and require constant coordination between all stakeholders.</p>
+          <p data-i18n="cs1.s1p2">During my work in an interior design studio, I observed that most project management still happens through a mix of <strong>phone calls, emails, spreadsheets and scattered documents</strong>. This creates delays, lost information and unnecessary stress for both designers and clients.</p>
+          <p data-i18n="cs1.s1p3">This project explores how a <strong>digital platform could centralise project communication</strong>, giving both the studio and the client a clearer view of the project at every stage.</p>
+        </div>
+        <div class="cs-sec">
+          <div class="cs-sec__over"><span>02</span><span data-i18n="s.prob">Problem Statement</span></div>
+          <h2 class="t-h2 cs-sec__h" data-i18n="cs1.s2h">The core tension</h2>
+          <p data-i18n="cs1.s2p">Interior designers need to coordinate complex projects involving many stakeholders, but the tools they currently use are fragmented and not adapted to their workflow.</p>
+          <div class="step-list">
+            <div class="step-item"><p data-i18n="cs1.st1">Designers spend a large portion of their time chasing information instead of designing</p></div>
+            <div class="step-item"><p data-i18n="cs1.st2">Clients lack visibility on project progress and often feel uncertain during long projects</p></div>
+            <div class="step-item"><p data-i18n="cs1.st3">Information gets lost between emails, calls and documents</p></div>
+          </div>
+          <div class="cs-pq"><p data-i18n="cs1.pq">&ldquo;The challenge: design a simple, transparent platform that improves designer&ndash;client communication while reducing studio administrative overhead.&rdquo;</p></div>
+        </div>
+        <div class="cs-sec">
+          <div class="cs-sec__over"><span>03</span><span data-i18n="s.res">Research &amp; Discovery</span></div>
+          <h2 class="t-h2 cs-sec__h" data-i18n="cs1.s3h">Understanding the problem space</h2>
+          <div class="method-g">
+            <div class="method-item"><div class="mi-icon">&#128065;</div><div class="mi-title" data-i18n="cs1.m1t">Studio observation</div><div class="mi-desc" data-i18n="cs1.m1d">Designers constantly switching between phone calls, emails and spreadsheets; clients requesting updates; supplier information hard to track.</div></div>
+            <div class="method-item"><div class="mi-icon">&#128483;</div><div class="mi-title" data-i18n="cs1.m2t">Informal interviews</div><div class="mi-desc" data-i18n="cs1.m2d">Conversations about daily coordination challenges, communication with clients, supplier tracking, and pain points in current workflows.</div></div>
+            <div class="method-item"><div class="mi-icon">&#128269;</div><div class="mi-title" data-i18n="cs1.m3t">Competitive analysis</div><div class="mi-desc" data-i18n="cs1.m3d">Asana, Monday, Notion, Houzz Pro, Studio Designer. Most are either <strong>too generic</strong> or not designed for direct client access.</div></div>
+          </div>
+        </div>
+        <div class="cs-sec">
+          <div class="cs-sec__over"><span>04</span><span data-i18n="s.ins">Key Insights</span></div>
+          <h2 class="t-h2 cs-sec__h" data-i18n="cs1.s4h">What the research revealed</h2>
+          <div class="insight-g">
+            <div class="insight-c"><div class="ins-num">01</div><p class="ins-body" data-i18n="cs1.i1"><strong>Communication with clients consumes a large amount of time.</strong> Many interactions could be simplified with direct access to updates.</p></div>
+            <div class="insight-c"><div class="ins-num">02</div><p class="ins-body" data-i18n="cs1.i2"><strong>Information is scattered across multiple tools.</strong> Fragmentation increases risk of miscommunication and delays.</p></div>
+            <div class="insight-c"><div class="ins-num">03</div><p class="ins-body" data-i18n="cs1.i3"><strong>Clients want reassurance during long projects.</strong> Transparency plays a key role in building trust.</p></div>
+            <div class="insight-c"><div class="ins-num">04</div><p class="ins-body" data-i18n="cs1.i4"><strong>Designers want to focus on creativity.</strong> Any solution should reduce administrative overhead, not add to it.</p></div>
+          </div>
+        </div>
+        <div class="cs-sec">
+          <div class="cs-sec__over"><span>05</span><span data-i18n="s.sol">Solution</span></div>
+          <h2 class="t-h2 cs-sec__h" data-i18n="cs1.s5h">The proposed platform</h2>
+          <div class="module-g">
+            <div class="module-item"><div class="mi-title" data-i18n="cs1.mod1t">Appointment system</div><p class="mi-desc" data-i18n="cs1.mod1d">Simple scheduling flow &mdash; clients book their first consultation without contacting the studio manually.</p></div>
+            <div class="module-item"><div class="mi-title" data-i18n="cs1.mod2t">Project dashboard</div><p class="mi-desc" data-i18n="cs1.mod2d">Personalised project page with overview, moodboards, current phase, and milestones.</p></div>
+            <div class="module-item" style="grid-column:span 2"><div class="mi-title" data-i18n="cs1.mod3t">Project timeline</div><p class="mi-desc" data-i18n="cs1.mod3d">Visual timeline of project stages &mdash; improving transparency and reducing uncertainty for clients.</p></div>
+          </div>
+        </div>
+        <div class="cs-sec">
+          <div class="cs-sec__over"><span>06</span><span data-i18n="s.ref">Reflection &amp; Learnings</span></div>
+          <h2 class="t-h2 cs-sec__h" data-i18n="cs1.s6h">What I learned</h2>
+          <p data-i18n="cs1.s6p">This project showed how <strong>deeply work practices influence product design</strong>. Interior designers care about how their tools reflect their professional image to clients.</p>
+          <div class="cs-pq"><p data-i18n="cs1.s6q">&ldquo;Next steps: testing with more designers, exploring mobile features for on-site updates, designing supplier management, and developing higher fidelity UI.&rdquo;</p></div>
+        </div>
+      </div>
+      <aside class="cs-margin">
+        <div class="margin-note"><span class="margin-note__lbl" data-i18n="mn.start">Starting point</span><p data-i18n="cs1.mn1">Working inside the studio gave me access to real friction &mdash; not a hypothetical version of it.</p></div>
+        <div class="margin-note" style="margin-top:var(--gap-xl)"><span class="margin-note__lbl" data-i18n="mn.dec">Design decision</span><p data-i18n="cs1.mn2">I centred the platform on the client experience because client anxiety was the primary source of unnecessary designer workload.</p></div>
+        <div class="margin-note" style="margin-top:var(--gap-xl)"><span class="margin-note__lbl" data-i18n="mn.next">Next step</span><p data-i18n="cs1.mn3">Supplier management &mdash; linking deliveries to the client-facing timeline &mdash; is the most complex remaining problem.</p></div>
+      </aside>
+    </div>
+  </div>
+</div>
+
+<!-- CASE STUDY 2 -->
+<div id="page-cs2" class="page">
+  <div class="cs-cover"><div class="img-ph" style="height:280px">[ Cover &mdash; assets/cs2-cover.jpg ]</div></div>
+  <div class="cs-hdr">
+    <div class="container--narrow">
+      <div>
+        <button class="cs-back" data-page="work" data-i18n="cs.back">&larr; Back to work</button>
+        <div class="cs-tags">
+          <span class="tag" data-i18n="tag.brand">Brand Strategy</span>
+          <span class="tag" data-i18n="tag.uxr">UX Research</span>
+          <span class="tag" data-i18n="tag.pc">Product Concept</span>
+          <span class="tag" data-i18n="tag.solo">Solo</span>
+        </div>
+        <h1 class="t-h1" style="margin-bottom:var(--gap-lg)" data-i18n="cs2.title">YUHWA &mdash; K-Beauty Brand Concept</h1>
+      </div>
+      <div class="cs-meta">
+        <div class="cs-meta__item"><span class="cs-meta__lbl" data-i18n="m.role">My Role</span><span class="cs-meta__val" data-i18n="cs2.role">UX Research &middot; Brand Strategy &middot; Product Concept</span></div>
+        <div class="cs-meta__item"><span class="cs-meta__lbl" data-i18n="m.dur">Duration</span><span class="cs-meta__val" data-i18n="cs2.dur">6 weeks</span></div>
+        <div class="cs-meta__item"><span class="cs-meta__lbl" data-i18n="m.tools">Tools</span><span class="cs-meta__val">Canva &middot; Adobe CC &middot; Notion</span></div>
+        <div class="cs-meta__item"><span class="cs-meta__lbl" data-i18n="m.type">Type</span><span class="cs-meta__val" data-i18n="cs2.type">Academic / Concept project</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="cs-body">
+    <div class="cs-prose">
+      <div class="cs-main">
+        <div class="cs-sec">
+          <div class="cs-sec__over"><span>01</span><span data-i18n="s.ctx">Context</span></div>
+          <h2 class="t-h2 cs-sec__h" data-i18n="cs2.s1h">The landscape</h2>
+          <p data-i18n="cs2.s1p1">K-beauty has become one of the most influential segments in the global skincare industry. Western consumers increasingly seek Korean skincare products for their innovation, layered routines and ingredient philosophy.</p>
+          <p data-i18n="cs2.s1p2">However, many brands entering Western markets face a challenge: balancing cultural authenticity with scientific credibility. This project explored how a new brand could occupy that space.</p>
+        </div>
+        <div class="cs-sec">
+          <div class="cs-sec__over"><span>02</span><span data-i18n="s.prob">Problem Statement</span></div>
+          <h2 class="t-h2 cs-sec__h" data-i18n="cs2.s2h">The core tension</h2>
+          <div class="cs-pq"><p data-i18n="cs2.pq">&ldquo;The challenge: design a brand concept that bridges Korean ingredient heritage with credible scientific validation &mdash; without losing either dimension.&rdquo;</p></div>
+        </div>
+        <div class="cs-sec">
+          <div class="cs-sec__over"><span>03</span><span data-i18n="s.ins">Key Insights</span></div>
+          <h2 class="t-h2 cs-sec__h" data-i18n="cs2.s3h">What the research revealed</h2>
+          <div class="insight-g">
+            <div class="insight-c"><div class="ins-num">01</div><p class="ins-body" data-i18n="cs2.i1"><strong>Western consumers seek authenticity.</strong> Traditional ingredients and rituals are part of the perceived value.</p></div>
+            <div class="insight-c"><div class="ins-num">02</div><p class="ins-body" data-i18n="cs2.i2"><strong>Scientific credibility builds trust.</strong> Clinical validation and dermatological research play a key role.</p></div>
+            <div class="insight-c" style="grid-column:span 2"><div class="ins-num">03</div><p class="ins-body" data-i18n="cs2.i3"><strong>Brand identity shapes perceived product quality.</strong> A coherent brand universe is essential in the premium skincare market.</p></div>
+          </div>
+        </div>
+        <div class="cs-sec">
+          <div class="cs-sec__over"><span>04</span><span data-i18n="s.dev">Concept Development</span></div>
+          <h2 class="t-h2 cs-sec__h" data-i18n="cs2.s4h">YUHWA (&#50836;&#54868;)</h2>
+          <p data-i18n="cs2.s4p">YUHWA draws on the Korean word for softness and harmony. The concept centres on balance between traditional Korean herbal medicine (Hanbang) and modern dermatological science.</p>
+          <div class="module-g">
+            <div class="module-item"><div class="mi-title" data-i18n="cs2.mod1t">Product philosophy</div><p class="mi-desc" data-i18n="cs2.mod1d">Hanbang ingredients + dermatological research = cultural depth and scientific credibility in one.</p></div>
+            <div class="module-item"><div class="mi-title" data-i18n="cs2.mod2t">Product architecture</div><p class="mi-desc" data-i18n="cs2.mod2d">A three-product ritual that simplifies the skincare routine while keeping the layered Korean skincare philosophy intact.</p></div>
+            <div class="module-item" style="grid-column:span 2"><div class="mi-title" data-i18n="cs2.mod3t">Visual identity</div><p class="mi-desc" data-i18n="cs2.mod3d">Muted natural palette, editorial typography, minimal packaging, bilingual brand language. Refined, calm, culturally grounded.</p></div>
+          </div>
+        </div>
+        <div class="cs-sec">
+          <div class="cs-sec__over"><span>05</span><span data-i18n="s.ref">Reflection &amp; Learnings</span></div>
+          <h2 class="t-h2 cs-sec__h" data-i18n="cs2.s5h">What I learned</h2>
+          <p data-i18n="cs2.s5p1">Branding is closely linked to user perception and trust. Consumers interpret signals from storytelling, design, and cultural references all at once.</p>
+          <p data-i18n="cs2.s5p2">The hardest challenge: translating Korean cultural elements without flattening or appropriating them for a Western audience.</p>
+        </div>
+      </div>
+      <aside class="cs-margin">
+        <div class="margin-note"><span class="margin-note__lbl" data-i18n="mn.opp">The opportunity</span><p data-i18n="cs2.mn1">The positioning map was the most clarifying tool &mdash; seeing where every major brand sat made the gap immediately visible.</p></div>
+        <div class="margin-note" style="margin-top:var(--gap-xl)"><span class="margin-note__lbl" data-i18n="mn.tens">Key tension</span><p data-i18n="cs2.mn2">Balancing cultural authenticity with Western legibility, without flattening cultural nuance, was the hardest design challenge.</p></div>
+        <div class="margin-note" style="margin-top:var(--gap-xl)"><span class="margin-note__lbl" data-i18n="mn.next">What I&rsquo;d do next</span><p data-i18n="cs2.mn3">Test the brand concept with both Korean and Western consumers to see whether cultural signals land as intended.</p></div>
+      </aside>
+    </div>
+  </div>
+</div>
+
+<!-- CASE STUDY 3 -->
+<div id="page-cs3" class="page">
+  <div class="cs-cover"><div class="img-ph" style="height:280px">[ Cover &mdash; assets/cs3-cover.jpg ]</div></div>
+  <div class="cs-hdr">
+    <div class="container--narrow">
+      <div>
+        <button class="cs-back" data-page="work" data-i18n="cs.back">&larr; Back to work</button>
+        <div class="cs-tags">
+          <span class="tag" data-i18n="tag.ps">Product Strategy</span>
+          <span class="tag" data-i18n="tag.mr">Market Research</span>
+          <span class="tag" data-i18n="tag.t4">Team &middot; 4 people</span>
+        </div>
+        <h1 class="t-h1" style="margin-bottom:var(--gap-lg)" data-i18n="cs3.title">Botani&apos;Kube &mdash; Smart Indoor Garden</h1>
+      </div>
+      <div class="cs-meta">
+        <div class="cs-meta__item"><span class="cs-meta__lbl" data-i18n="m.role">My Role</span><span class="cs-meta__val" data-i18n="cs3.role">Market Research &middot; Product Strategy</span></div>
+        <div class="cs-meta__item"><span class="cs-meta__lbl" data-i18n="m.team">Team</span><span class="cs-meta__val" data-i18n="cs3.team">4 people</span></div>
+        <div class="cs-meta__item"><span class="cs-meta__lbl" data-i18n="m.dur">Duration</span><span class="cs-meta__val" data-i18n="cs3.dur">6 weeks</span></div>
+        <div class="cs-meta__item"><span class="cs-meta__lbl" data-i18n="m.tools">Tools</span><span class="cs-meta__val">Google Forms &middot; Canva &middot; Adobe CC &middot; Notion</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="cs-body">
+    <div class="cs-prose">
+      <div class="cs-main">
+        <div class="cs-sec">
+          <div class="cs-sec__over"><span>01</span><span data-i18n="s.ctx">Context</span></div>
+          <h2 class="t-h2 cs-sec__h" data-i18n="cs3.s1h">The landscape</h2>
+          <p data-i18n="cs3.s1p1">Urban lifestyles increasingly limit access to outdoor space. Indoor gardening products have emerged as a way for city residents to reconnect with plants, even in small apartments.</p>
+          <p data-i18n="cs3.s1p2">Yet many consumers remain hesitant &mdash; not because of lack of interest, but because they&rsquo;re afraid of failing.</p>
+        </div>
+        <div class="cs-sec">
+          <div class="cs-sec__over"><span>02</span><span data-i18n="s.prob">Problem Statement</span></div>
+          <h2 class="t-h2 cs-sec__h" data-i18n="cs3.s2h">The plant anxiety paradox</h2>
+          <div class="cs-pq"><p data-i18n="cs3.pq">&ldquo;A key reason people don&rsquo;t buy plants is the fear of not being able to keep them alive. The challenge: how might a product remove that anxiety entirely?&rdquo;</p></div>
+        </div>
+        <div class="cs-sec">
+          <div class="cs-sec__over"><span>03</span><span data-i18n="s.ins">Key Insights</span></div>
+          <h2 class="t-h2 cs-sec__h" data-i18n="cs3.s3h">What the research revealed</h2>
+          <div class="insight-g">
+            <div class="insight-c"><div class="ins-num">01</div><p class="ins-body" data-i18n="cs3.i1"><strong>Plant care anxiety is a major barrier.</strong> Automation directly reduces this stress.</p></div>
+            <div class="insight-c"><div class="ins-num">02</div><p class="ins-body" data-i18n="cs3.i2"><strong>Consumers dislike restrictive ecosystems.</strong> Users prefer flexibility over proprietary capsule lock-in.</p></div>
+            <div class="insight-c" style="grid-column:span 2"><div class="ins-num">03</div><p class="ins-body" data-i18n="cs3.i3"><strong>Sustainability matters.</strong> Reducing waste can be a strong differentiator for eco-conscious urban consumers.</p></div>
+          </div>
+        </div>
+        <div class="cs-sec">
+          <div class="cs-sec__over"><span>04</span><span data-i18n="s.sol">Solution</span></div>
+          <h2 class="t-h2 cs-sec__h" data-i18n="cs3.s4h">Botani&apos;Kube</h2>
+          <p data-i18n="cs3.s4p">A smart indoor garden designed for urban apartments, integrating automated features to simplify plant care entirely.</p>
+          <div class="module-g">
+            <div class="module-item"><div class="mi-title" data-i18n="cs3.mod1t">Automated features</div><p class="mi-desc" data-i18n="cs3.mod1d">Automatic irrigation, integrated LED grow lighting, and smart humidity sensors &mdash; no daily maintenance needed.</p></div>
+            <div class="module-item"><div class="mi-title" data-i18n="cs3.mod2t">Open seed ecosystem</div><p class="mi-desc" data-i18n="cs3.mod2d">Standard seeds rather than proprietary capsules &mdash; more freedom, less brand dependency.</p></div>
+            <div class="module-item" style="grid-column:span 2"><div class="mi-title" data-i18n="cs3.mod3t">Sustainability focus</div><p class="mi-desc" data-i18n="cs3.mod3d">Integrated compost module for reusing organic kitchen waste &mdash; supporting a more circular growing approach.</p></div>
+          </div>
+        </div>
+        <div class="cs-sec">
+          <div class="cs-sec__over"><span>05</span><span data-i18n="s.ref">Reflection &amp; Learnings</span></div>
+          <h2 class="t-h2 cs-sec__h" data-i18n="cs3.s5h">What I learned</h2>
+          <p data-i18n="cs3.s5p">The most important insight was the role of <strong>problem framing</strong>. We initially approached this as a convenience product. Research revealed the real barrier was emotional anxiety &mdash; a fundamentally different problem to solve.</p>
+          <div class="cs-pq"><p data-i18n="cs3.s5q">&ldquo;This project reinforced the importance of deeply understanding user motivations before designing solutions.&rdquo;</p></div>
+        </div>
+      </div>
+      <aside class="cs-margin">
+        <div class="margin-note"><span class="margin-note__lbl" data-i18n="mn.framing">Problem framing</span><p data-i18n="cs3.mn1">We almost designed around the wrong problem (convenience) until research revealed anxiety as the core blocker.</p></div>
+        <div class="margin-note" style="margin-top:var(--gap-xl)"><span class="margin-note__lbl" data-i18n="mn.diff">Key differentiator</span><p data-i18n="cs3.mn2">The open seed standard was both functional and strategic &mdash; directly addressing competitor lock-in frustration.</p></div>
+        <div class="margin-note" style="margin-top:var(--gap-xl)"><span class="margin-note__lbl" data-i18n="mn.next">What I&rsquo;d do next</span><p data-i18n="cs3.mn3">Validate whether anxiety framing resonates in user interviews, and test price point against willingness-to-pay.</p></div>
+      </aside>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div id="page-about" class="page">
+  <div class="about-page">
+    <div class="about-g">
+      <div>
+        <div class="about-photo"><div class="img-ph">[ assets/profile.jpg &middot; 3:4 ]</div></div>
+      </div>
+      <div>
+        <span class="t-overline" style="display:block;margin-bottom:var(--gap-md)" data-i18n="nav.about">About</span>
+        <p class="about-intro" data-i18n="about.intro">I&rsquo;m Margaux, a designer who came to UX through marketing strategy, and finds that background more useful every day.</p>
+        <div class="about-body">
+          <p data-i18n="about.p1">I started with graphic arts at Brassart, moved into marketing strategy, and have spent the last year closing the gap toward product design. That non-linear path turns out to be an asset: I understand both the product side and the commercial side, and I know why design decisions have to make business sense, not just user sense.</p>
+          <p data-i18n="about.p2">I&rsquo;m finishing a Bachelor&rsquo;s in Marketing &amp; Communication in France and actively looking for my first Junior UX/UI role. I&rsquo;m building my practice through self-directed projects focused on UX design and brand strategy.</p>
+          <p data-i18n="about.p3">I want to join a team where design is taken seriously &mdash; with experienced people around me, space to contribute to real decisions, and room to grow.</p>
+        </div>
+        <div class="skills-block">
+          <div class="skills-block__hdr"><span class="t-overline" data-i18n="about.skills">Skills &amp; tools</span></div>
+          <div class="skills-cols">
+            <div>
+              <p class="skill-col__lbl" data-i18n="sk.ux">UX Design</p>
+              <ul class="skill-col">
+                <li data-i18n="sk.int">User interviews</li>
+                <li data-i18n="sk.wf">Wireframing &amp; prototyping</li>
+                <li data-i18n="sk.ia">Information architecture</li>
+                <li data-i18n="sk.ut">Usability testing</li>
+                <li data-i18n="sk.jm">Journey mapping</li>
+              </ul>
+            </div>
+            <div>
+              <p class="skill-col__lbl" data-i18n="sk.tools">Tools</p>
+              <ul class="skill-col"><li>Figma</li><li>Pack Office</li><li>Notion</li><li>Adobe Suite</li></ul>
+            </div>
+            <div>
+              <p class="skill-col__lbl" data-i18n="sk.strat">Strategy</p>
+              <ul class="skill-col">
+                <li data-i18n="sk.ca">Competitive analysis</li>
+                <li data-i18n="sk.bp">Brand positioning</li>
+                <li data-i18n="sk.mr">Market research</li>
+                <li data-i18n="sk.ps">Product strategy</li>
+                <li data-i18n="sk.cs">Campaign strategy</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="cv-block">
+          <p data-i18n="about.cvtxt">Looking for a Junior UX/UI Designer role with mentorship, real scope to contribute, and room to grow.</p>
+          <a href="#" class="btn btn--primary" download data-i18n="about.cvbtn">Download CV (PDF)</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div id="page-contact" class="page">
+  <div class="contact-page">
+    <div class="container"><span class="t-overline" style="display:block;margin-bottom:var(--gap-lg)" data-i18n="nav.contact">Contact</span></div>
+    <div class="contact-g">
+      <div>
+        <h2 class="contact-h" data-i18n="contact.h">Let&rsquo;s <em>collaborate</em>!</h2>
+        <p class="t-body-sm" style="max-width:320px" data-i18n="contact.sub">Open to junior roles or internships, in person or remote. I respond within 24 hours.</p>
+      </div>
+      <div>
+        <a href="/cdn-cgi/l/email-protection#335e52415452464b5a40511d43415c73545e525a5f1d505c5e" class="cl-row"><span class="cl-lbl">Email</span><span class="cl-val"><span class="__cf_email__" data-cfemail="e38e82918482969b8a9081cd93918ca3848e828a8fcd808c8e">[email&#160;protected]</span></span><span class="cl-arr">&nearr;</span></a>
+        <a href="https://www.linkedin.com/in/margaux-isambert/" target="_blank" rel="noopener noreferrer" class="cl-row"><span class="cl-lbl">LinkedIn</span><span class="cl-val">linkedin.com/in/margaux-isambert</span><span class="cl-arr">&nearr;</span></a>
+        <a href="https://read.cv/margaux" target="_blank" rel="noopener noreferrer" class="cl-row"><span class="cl-lbl">Read.cv</span><span class="cl-val">read.cv/margaux</span><span class="cl-arr">&nearr;</span></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-in">
+    <span class="footer-name">Margaux Isambert</span>
+    <span class="footer-note" data-i18n="footer.note">Junior UX/UI Designer &middot; 2026</span>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const T={
+en:{'nav.work':'Work','nav.about':'About','nav.contact':'Contact','hero.avail':'Available · 2026','hero.role':'Junior UX/UI Designer','hero.h1':'Designing experiences<br/>that make <em>business sense</em>.','hero.sub':'A Junior UX/UI Designer with a marketing strategy background. Working at the intersection of user research, product thinking, and brand logic.','chip.based':'Based','chip.basedV':'France · EU','chip.tools':'Tools','chip.open':'Open to','chip.openV':'Junior roles · Internships','hero.cta1':'View my work','hero.cta2':'About me','hero.scroll':'Scroll','cs1.dot':'Interior Design PM','cs2.dot':'YUHWA K-Beauty','cs3.dot':"Botani’Kube",'tag.uxcs':'UX Case Study','tag.res':'Research','tag.proto':'Prototype','tag.solo':'Solo','tag.concept':'Concept project','tag.brand':'Brand Strategy','tag.uxr':'UX Research','tag.pc':'Product Concept','tag.ps':'Product Strategy','tag.mr':'Market Research','tag.t4':'Team · 4 people','work.h':'Projects','work.sub':'UX design and brand strategy, each project structured around a problem to solve, documented in full.','cs1.title':'Interior Design Project Management Platform','cs1.wdesc':'Studio observation, informal interviews, competitive analysis, through to a mid-fidelity Figma prototype. Centred on client transparency and reducing designer administrative overhead.','cs2.title':'YUHWA — K-Beauty Brand Concept','cs2.wdesc':'Competitive analysis and positioning gap identification for a premium K-beauty brand bridging Korean skincare heritage with scientific credibility.','cs3.title':"Botani’Kube — Smart Indoor Garden",'cs3.wdesc':'Market gap analysis, user insight research, and product concept for an autonomous smart garden addressing plant care anxiety in urban households.','cs.back':'← Back to work','m.role':'My Role','m.tools':'Tools','m.type':'Type','m.dur':'Duration','m.team':'Team','s.ctx':'Context','s.prob':'Problem Statement','s.res':'Research & Discovery','s.ins':'Key Insights','s.sol':'Solution','s.ref':'Reflection & Learnings','s.dev':'Concept Development','mn.start':'Starting point','mn.dec':'Design decision','mn.next':'Next step','mn.opp':'The opportunity','mn.tens':'Key tension','mn.framing':'Problem framing','mn.diff':'Key differentiator','cs1.role':'UX Researcher & Designer','cs1.type':'Concept / Portfolio','cs1.s1h':'The landscape','cs1.s1p1':'Interior architecture projects involve many actors: designers, clients, contractors, suppliers and manufacturers. Projects can last several months and require constant coordination between all stakeholders.','cs1.s1p2':'During my work in an interior design studio, I observed that most project management still happens through a mix of <strong>phone calls, emails, spreadsheets and scattered documents</strong>. This creates delays, lost information and unnecessary stress for both designers and clients.','cs1.s1p3':'This project explores how a <strong>digital platform could centralise project communication</strong>, giving both the studio and the client a clearer view of the project at every stage.','cs1.s2h':'The core tension','cs1.s2p':'Interior designers need to coordinate complex projects involving many stakeholders, but the tools they currently use are fragmented and not adapted to their workflow.','cs1.st1':'Designers spend a large portion of their time chasing information instead of designing','cs1.st2':'Clients lack visibility on project progress and often feel uncertain during long projects','cs1.st3':'Information gets lost between emails, calls and documents','cs1.pq':'“The challenge: design a simple, transparent platform that improves designer–client communication while reducing studio administrative overhead.”','cs1.s3h':'Understanding the problem space','cs1.m1t':'Studio observation','cs1.m1d':'Designers constantly switching between phone calls, emails and spreadsheets; clients requesting updates; supplier information hard to track.','cs1.m2t':'Informal interviews','cs1.m2d':'Conversations about daily coordination challenges, communication with clients, supplier tracking, and pain points in current workflows.','cs1.m3t':'Competitive analysis','cs1.m3d':'Asana, Monday, Notion, Houzz Pro, Studio Designer. Most are either <strong>too generic</strong> or not designed for direct client access.','cs1.s4h':'What the research revealed','cs1.i1':'<strong>Communication with clients consumes a large amount of time.</strong> Many interactions could be simplified with direct access to updates.','cs1.i2':'<strong>Information is scattered across multiple tools.</strong> Fragmentation increases risk of miscommunication and delays.','cs1.i3':'<strong>Clients want reassurance during long projects.</strong> Transparency plays a key role in building trust.','cs1.i4':'<strong>Designers want to focus on creativity.</strong> Any solution should reduce administrative overhead, not add to it.','cs1.s5h':'The proposed platform','cs1.mod1t':'Appointment system','cs1.mod1d':'Simple scheduling flow — clients book their first consultation without contacting the studio manually.','cs1.mod2t':'Project dashboard','cs1.mod2d':'Personalised project page with overview, moodboards, current phase, and milestones.','cs1.mod3t':'Project timeline','cs1.mod3d':'Visual timeline of project stages — improving transparency and reducing uncertainty for clients.','cs1.s6h':'What I learned','cs1.s6p':'This project showed how <strong>deeply work practices influence product design</strong>. Interior designers care about how their tools reflect their professional image to clients.','cs1.s6q':'“Next steps: testing with more designers, exploring mobile features for on-site updates, designing supplier management, and developing higher fidelity UI.”','cs1.mn1':'Working inside the studio gave me access to real friction — not a hypothetical version of it.','cs1.mn2':'I centred the platform on the client experience because client anxiety was the primary source of unnecessary designer workload.','cs1.mn3':'Supplier management — linking deliveries to the client-facing timeline — is the most complex remaining problem.','cs2.role':'UX Research · Brand Strategy · Product Concept','cs2.dur':'6 weeks','cs2.type':'Academic / Concept project','cs2.s1h':'The landscape','cs2.s1p1':'K-beauty has become one of the most influential segments in the global skincare industry. Western consumers increasingly seek Korean skincare products for their innovation, layered routines and ingredient philosophy.','cs2.s1p2':'However, many brands entering Western markets face a challenge: balancing cultural authenticity with scientific credibility. This project explored how a new brand could occupy that space.','cs2.s2h':'The core tension','cs2.pq':'“The challenge: design a brand concept that bridges Korean ingredient heritage with credible scientific validation — without losing either dimension.”','cs2.s3h':'What the research revealed','cs2.i1':'<strong>Western consumers seek authenticity.</strong> Traditional ingredients and rituals are part of the perceived value.','cs2.i2':'<strong>Scientific credibility builds trust.</strong> Clinical validation and dermatological research play a key role.','cs2.i3':'<strong>Brand identity shapes perceived product quality.</strong> A coherent brand universe is essential in the premium skincare market.','cs2.s4h':'YUHWA (유화)','cs2.s4p':'YUHWA draws on the Korean word for softness and harmony. The concept centres on balance between traditional Korean herbal medicine (Hanbang) and modern dermatological science.','cs2.mod1t':'Product philosophy','cs2.mod1d':'Hanbang ingredients + dermatological research = cultural depth and scientific credibility in one.','cs2.mod2t':'Product architecture','cs2.mod2d':'A three-product ritual that simplifies the skincare routine while keeping the layered Korean skincare philosophy intact.','cs2.mod3t':'Visual identity','cs2.mod3d':'Muted natural palette, editorial typography, minimal packaging, bilingual brand language. Refined, calm, culturally grounded.','cs2.s5h':'What I learned','cs2.s5p1':'Branding is closely linked to user perception and trust. Consumers interpret signals from storytelling, design, and cultural references all at once.','cs2.s5p2':'The hardest challenge: translating Korean cultural elements without flattening or appropriating them for a Western audience.','cs2.mn1':'The positioning map was the most clarifying tool — seeing where every major brand sat made the gap immediately visible.','cs2.mn2':'Balancing cultural authenticity with Western legibility, without flattening cultural nuance, was the hardest design challenge.','cs2.mn3':'Test the brand concept with both Korean and Western consumers to see whether cultural signals land as intended.','cs3.role':'Market Research · Product Strategy','cs3.team':'4 people','cs3.dur':'6 weeks','cs3.s1h':'The landscape','cs3.s1p1':'Urban lifestyles increasingly limit access to outdoor space. Indoor gardening products have emerged as a way for city residents to reconnect with plants, even in small apartments.','cs3.s1p2':'Yet many consumers remain hesitant — not because of lack of interest, but because they’re afraid of failing.','cs3.s2h':'The plant anxiety paradox','cs3.pq':'“A key reason people don’t buy plants is the fear of not being able to keep them alive. The challenge: how might a product remove that anxiety entirely?”','cs3.s3h':'What the research revealed','cs3.i1':'<strong>Plant care anxiety is a major barrier.</strong> Automation directly reduces this stress.','cs3.i2':'<strong>Consumers dislike restrictive ecosystems.</strong> Users prefer flexibility over proprietary capsule lock-in.','cs3.i3':'<strong>Sustainability matters.</strong> Reducing waste can be a strong differentiator for eco-conscious urban consumers.','cs3.s4h':"Botani’Kube",'cs3.s4p':'A smart indoor garden designed for urban apartments, integrating automated features to simplify plant care entirely.','cs3.mod1t':'Automated features','cs3.mod1d':'Automatic irrigation, integrated LED grow lighting, and smart humidity sensors — no daily maintenance needed.','cs3.mod2t':'Open seed ecosystem','cs3.mod2d':'Standard seeds rather than proprietary capsules — more freedom, less brand dependency.','cs3.mod3t':'Sustainability focus','cs3.mod3d':'Integrated compost module for reusing organic kitchen waste — supporting a more circular growing approach.','cs3.s5h':'What I learned','cs3.s5p':'The most important insight was the role of <strong>problem framing</strong>. We initially approached this as a convenience product. Research revealed the real barrier was emotional anxiety — a fundamentally different problem to solve.','cs3.s5q':'“This project reinforced the importance of deeply understanding user motivations before designing solutions.”','cs3.mn1':'We almost designed around the wrong problem (convenience) until research revealed anxiety as the core blocker.','cs3.mn2':'The open seed standard was both functional and strategic — directly addressing competitor lock-in frustration.','cs3.mn3':'Validate whether anxiety framing resonates in user interviews, and test price point against willingness-to-pay.','about.intro':"I’m Margaux, a designer who came to UX through marketing strategy, and finds that background more useful every day.",'about.p1':"I started with graphic arts at Brassart, moved into marketing strategy, and have spent the last year closing the gap toward product design. That non-linear path turns out to be an asset: I understand both the product side and the commercial side, and I know why design decisions have to make business sense, not just user sense.",'about.p2':"I’m finishing a Bachelor’s in Marketing & Communication in France and actively looking for my first Junior UX/UI role. I’m building my practice through self-directed projects focused on UX design and brand strategy.",'about.p3':"I want to join a team where design is taken seriously — with experienced people around me, space to contribute to real decisions, and room to grow.",'about.skills':'Skills & tools','about.cvtxt':'Looking for a Junior UX/UI Designer role with mentorship, real scope to contribute, and room to grow.','about.cvbtn':'Download CV (PDF)','sk.ux':'UX Design','sk.tools':'Tools','sk.strat':'Strategy','sk.int':'User interviews','sk.wf':'Wireframing & prototyping','sk.ia':'Information architecture','sk.ut':'Usability testing','sk.jm':'Journey mapping','sk.ca':'Competitive analysis','sk.bp':'Brand positioning','sk.mr':'Market research','sk.ps':'Product strategy','sk.cs':'Campaign strategy','contact.h':"Let’s <em>collaborate</em>!",'contact.sub':'Open to junior roles or internships, in person or remote. I respond within 24 hours.','footer.note':'Junior UX/UI Designer · 2026'},
+fr:{'nav.work':'Projets','nav.about':'À propos','nav.contact':'Contact','hero.avail':'Disponible · 2026','hero.role':'Designer UX/UI Junior','hero.h1':'Des expériences qui ont du <em>sens business</em>.','hero.sub':"Designer UX/UI Junior avec une formation en stratégie marketing. À l’intersection de la recherche utilisateur, de la réflexion produit et de la logique de marque.",'chip.based':'Basée','chip.basedV':'France · UE','chip.tools':'Outils','chip.open':'Cherche','chip.openV':'Poste junior · Stage','hero.cta1':'Voir mes projets','hero.cta2':'À propos','hero.scroll':'Défiler','cs1.dot':'Gestion projets archi','cs2.dot':'YUHWA K-Beauty','cs3.dot':"Botani’Kube",'tag.uxcs':'Étude de cas UX','tag.res':'Recherche','tag.proto':'Prototype','tag.solo':'Solo','tag.concept':'Projet concept','tag.brand':'Stratégie de marque','tag.uxr':'Recherche UX','tag.pc':'Concept produit','tag.ps':'Stratégie produit','tag.mr':'Étude de marché','tag.t4':'Équipe · 4 pers.','work.h':'Projets','work.sub':"Design UX et stratégie de marque, chaque projet structuré autour d’un problème à résoudre.",'cs1.title':"Plateforme de gestion de projets en architecture intérieure",'cs1.wdesc':"Observation en studio, entretiens informels, analyse concurrentielle, jusqu’à un prototype Figma mi-fidélité. Axé sur la transparence client et la réduction de la charge administrative.",'cs2.title':'YUHWA — Concept de marque K-Beauty','cs2.wdesc':"Analyse concurrentielle et identification d’un positionnement différenciant pour une marque K-beauty premium.",'cs3.title':"Botani’Kube — Jardin intérieur connecté",'cs3.wdesc':"Analyse de marché et concept produit pour un jardin connecté autonome répondant à l’anxiété liée aux soins des plantes.",'cs.back':'← Retour aux projets','m.role':'Mon rôle','m.tools':'Outils','m.type':'Type','m.dur':'Durée','m.team':'Équipe','s.ctx':'Contexte','s.prob':'Problématique','s.res':'Recherche & Découverte','s.ins':'Insights clés','s.sol':'Solution','s.ref':'Réflexion & Apprentissages','s.dev':'Développement du concept','mn.start':'Point de départ','mn.dec':'Décision de conception','mn.next':'Étape suivante','mn.opp':"L’opportunité",'mn.tens':'Tension centrale','mn.framing':'Cadrage du problème','mn.diff':'Différenciateur clé','cs1.role':'Chercheuse UX & Designer','cs1.type':'Projet concept / Portfolio','cs1.s1h':'Le contexte','cs1.s1p1':"Les projets d’architecture intérieure impliquent de nombreux acteurs : designers, clients, artisans, fournisseurs. Les projets durent souvent plusieurs mois.",'cs1.s1p2':"En travaillant dans un studio, j’ai observé que la gestion de projet passe encore par un mélange d’<strong>appels, d’e-mails, de tableurs et de documents dispersés</strong>. Cela génère des retards, des pertes d’information et du stress inutile.",'cs1.s1p3':'Ce projet explore comment une <strong>plateforme numérique pourrait centraliser la communication</strong> et offrir une vision claire à chaque étape.','cs1.s2h':'La tension centrale','cs1.s2p':'Les designers doivent coordonner des projets complexes, mais les outils actuels sont fragmentés et inadaptés.','cs1.st1':"Les designers passent beaucoup de temps à chercher des informations plutôt qu’à créer",'cs1.st2':'Les clients manquent de visibilité et se sentent incertains','cs1.st3':'Les informations se perdent entre e-mails, appels et documents','cs1.pq':'« Le défi : concevoir une plateforme simple et transparente qui améliore la communication designers-clients tout en réduisant la charge administrative. »','cs1.s3h':"Comprendre l’espace problème",'cs1.m1t':'Observation en studio','cs1.m1d':"Designers passant d’un outil à l’autre, clients demandant des mises à jour, informations fournisseurs difficiles à retrouver.",'cs1.m2t':'Entretiens informels','cs1.m2d':"Conversations sur les défis de coordination, la communication avec les clients et les points de friction.",'cs1.m3t':'Analyse concurrentielle','cs1.m3d':'Asana, Monday, Notion, Houzz Pro, Studio Designer : <strong>trop génériques</strong> ou non pensés pour un accès direct par les clients.','cs1.s4h':'Ce que la recherche a révélé','cs1.i1':'<strong>La communication client consomme beaucoup de temps.</strong> Un accès direct aux mises à jour simplifierait de nombreux échanges.','cs1.i2':'<strong>Les informations sont dispersées.</strong> La fragmentation augmente les risques de malentendus.','cs1.i3':'<strong>Les clients veulent être rassurés.</strong> La transparence est clé pour la confiance.','cs1.i4':"<strong>Les designers veulent se concentrer sur la création.</strong> La solution doit réduire la charge administrative, pas l’augmenter.",'cs1.s5h':'La plateforme proposée','cs1.mod1t':'Système de rendez-vous','cs1.mod1d':'Prise de rendez-vous simple sans contacter le studio manuellement.','cs1.mod2t':'Tableau de bord projet','cs1.mod2d':"Page de projet personnalisée : vue d’ensemble, moodboards, phase en cours, jalons.",'cs1.mod3t':'Planning de projet','cs1.mod3d':"Planning visuel des étapes améliorant la transparence et réduisant l’incertitude.",'cs1.s6h':"Ce que j’ai appris",'cs1.s6p':'Ce projet m’a montré comment les <strong>pratiques de travail influencent profondément le design produit</strong>.','cs1.s6q':'« Prochaines étapes : tester avec plus de designers, explorer les fonctionnalités mobiles, développer une UI haute fidélité. »','cs1.mn1':"Travailler dans le studio m’a donné accès à la friction réelle — pas une version hypothétique.",'cs1.mn2':"J’ai centré la plateforme sur l’expérience client car l’anxiété des clients était la principale source de charge inutile.",'cs1.mn3':'La gestion fournisseurs — relier les livraisons au planning visible par le client — est le problème le plus complexe restant.','cs2.role':'Recherche UX · Stratégie de marque · Concept produit','cs2.dur':'6 semaines','cs2.type':'Projet académique / Concept','cs2.s1h':'Le contexte','cs2.s1p1':"La K-beauty est devenue l’un des segments les plus influents de l’industrie mondiale du soin.",'cs2.s1p2':'De nombreuses marques font face au défi de concilier authenticité culturelle et crédibilité scientifique. Ce projet explore comment un nouveau positionnement pourrait occuper cet espace.','cs2.s2h':'La tension centrale','cs2.pq':'« Le défi : concevoir un concept de marque reliant le patrimoine coréen et la validation scientifique — sans sacrifier aucune des deux dimensions. »','cs2.s3h':'Ce que la recherche a révélé','cs2.i1':"<strong>Les consommateurs cherchent l’authenticité.</strong> Les ingrédients et rituels traditionnels font partie de la valeur perçue.",'cs2.i2':'<strong>La crédibilité scientifique crée la confiance.</strong> La validation clinique est clé.','cs2.i3':"<strong>L’identité de marque façonne la qualité perçue.</strong> Un univers cohérent est essentiel.",'cs2.s4h':'YUHWA (유화)','cs2.s4p':'YUHWA, inspiré du mot coréen signifiant douceur et harmonie. Équilibre entre médecine herboriste coréenne (Hanbang) et science dermatologique moderne.','cs2.mod1t':'Philosophie produit','cs2.mod1d':'Ingrédients hanbang + recherche dermatologique = profondeur culturelle et crédibilité scientifique.','cs2.mod2t':'Architecture produit','cs2.mod2d':'Rituel en trois produits simplifiant la routine tout en respectant la philosophie coréenne.','cs2.mod3t':'Identité visuelle','cs2.mod3d':'Palette douce, typographie éditoriale, packaging minimal, langage bilingue. Raffiné, calme, ancré culturellement.','cs2.s5h':"Ce que j’ai appris",'cs2.s5p1':'Le branding est étroitement lié à la perception et à la confiance.','cs2.s5p2':'Traduire des éléments culturels coréens sans les aplatir pour un public occidental a été le défi principal.','cs2.mn1':"La carte de positionnement a rendu l’opportunité immédiatement visible.",'cs2.mn2':'Équilibrer authenticité culturelle et lisibilité occidentale a été le défi le plus difficile.','cs2.mn3':'Tester le concept avec des consommateurs coréens et occidentaux pour vérifier si les signaux culturels fonctionnent.','cs3.role':'Étude de marché · Stratégie produit','cs3.team':'4 personnes','cs3.dur':'6 semaines','cs3.s1h':'Le contexte','cs3.s1p1':"Les modes de vie urbains limitent l’accès aux espaces extérieurs. Le jardinage intérieur permet aux citadins de renouer avec les plantes.",'cs3.s1p2':"Pourtant beaucoup restent hésitants — non par manque d’intérêt, mais par peur d’échouer.",'cs3.s2h':"Le paradoxe de l’anxiété liée aux plantes",'cs3.pq':'« La principale raison pour ne pas acheter de plantes : la peur de ne pas pouvoir les maintenir en vie. Le défi : comment un produit pourrait-il éliminer cette anxiété ? »','cs3.s3h':'Ce que la recherche a révélé','cs3.i1':"<strong>L’anxiété liée aux soins est un frein majeur.</strong> L’automatisation réduit directement ce stress.",'cs3.i2':'<strong>Les écosystèmes fermés sont mal perçus.</strong> Les utilisateurs préfèrent la flexibilité.','cs3.i3':'<strong>La durabilité compte.</strong> Réduire les déchets peut différencier le produit.','cs3.s4h':"Botani’Kube",'cs3.s4p':'Jardin intérieur connecté conçu pour les appartements urbains, avec des fonctionnalités automatisées.','cs3.mod1t':'Fonctionnalités automatisées','cs3.mod1d':'Irrigation automatique, éclairage LED intégré, capteurs intelligents — aucun entretien quotidien.','cs3.mod2t':'Écosystème de graines ouvert','cs3.mod2d':'Graines standard plutôt que capsules propriétaires — plus de liberté.','cs3.mod3t':'Démarche durable','cs3.mod3d':'Module de compostage intégré pour réutiliser les déchets organiques.','cs3.s5h':"Ce que j’ai appris",'cs3.s5p':"L’insight le plus important a été le rôle du <strong>cadrage du problème</strong>. Nous avons d’abord traité cela comme un produit de confort. La recherche a révélé que le vrai frein était l’anxiété émotionnelle.",'cs3.s5q':"« Ce projet a renforcé l’importance de comprendre les motivations profondes avant de concevoir des solutions. »",'cs3.mn1':"Nous avons failli concevoir autour du mauvais problème jusqu’à ce que la recherche révèle l’anxiété comme frein central.",'cs3.mn2':'Le standard de graines ouvert était à la fois fonctionnel et stratégique.','cs3.mn3':"Valider si le cadrage autour de l’anxiété résonne en entretiens, et tester le prix.",'about.intro':"Je suis Margaux, une designer venue à l’UX par la stratégie marketing.",'about.p1':"J’ai commencé par les arts graphiques à Brassart, puis la stratégie marketing. Ce parcours non linéaire est un atout : je comprends à la fois le versant produit et commercial.",'about.p2':"Je termine un Bachelor en Marketing & Communication et cherche mon premier poste de Designer UX/UI Junior.",'about.p3':"Je veux rejoindre une équipe où le design est pris au sérieux — avec des personnes expérimentées et la possibilité de progresser.",'about.skills':'Compétences & outils','about.cvtxt':"À la recherche d’un poste Designer UX/UI Junior avec mentorat et possibilité d’évolution.",'about.cvbtn':'Télécharger le CV (PDF)','sk.ux':'Design UX','sk.tools':'Outils','sk.strat':'Stratégie','sk.int':'Entretiens utilisateurs','sk.wf':'Wireframing & prototypage','sk.ia':"Architecture de l’information",'sk.ut':"Tests d’utilisabilité",'sk.jm':'Journey mapping','sk.ca':'Analyse concurrentielle','sk.bp':'Positionnement de marque','sk.mr':'Étude de marché','sk.ps':'Stratégie produit','sk.cs':'Stratégie de campagne','contact.h':'Collaborons <em>ensemble</em> !','contact.sub':'Ouverte à des postes juniors ou stages. Je réponds sous 24 heures.','footer.note':'Designer UX/UI Junior · 2026'}
+};
+
+let lang='en';
+function applyLang(l){
+  lang=l;const d=T[l];if(!d)return;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const v=d[el.dataset.i18n];if(v!==undefined)el.innerHTML=v;});
+  document.documentElement.lang=l;
+  document.querySelectorAll('.lang-btn').forEach(b=>{const a=b.dataset.lang===l;b.classList.toggle('active',a);b.setAttribute('aria-pressed',a);});
+}
+
+const PAGES={home:'page-home',work:'page-work',about:'page-about',contact:'page-contact',cs1:'page-cs1',cs2:'page-cs2',cs3:'page-cs3'};
+const TOP_NAV=new Set(['work','about','contact']);
+const WORK_SUB=new Set(['cs1','cs2','cs3']);
+let current='home';
+
+function go(key){
+  if(!PAGES[key])return;
+  current=key;
+  Object.values(PAGES).forEach(id=>{const el=document.getElementById(id);if(el){el.style.display='none';el.classList.remove('active');}});
+  const el=document.getElementById(PAGES[key]);
+  el.style.display='block';void el.offsetWidth;el.classList.add('active');
+  window.scrollTo({top:0,behavior:'instant'});
+  const nk=TOP_NAV.has(key)?key:WORK_SUB.has(key)?'work':null;
+  document.querySelectorAll('.nav-link').forEach(b=>b.classList.toggle('active',b.dataset.page===nk));
+  const nav=document.getElementById('site-nav');
+  if(key==='home'){nav.classList.remove('opaque');requestAnimationFrame(()=>setTimeout(drawLines,80));}
+  else{nav.classList.add('opaque');}
+}
+
+window.addEventListener('scroll',()=>{
+  if(current!=='home')return;
+  document.getElementById('site-nav').classList.toggle('scrolled',window.scrollY>40);
+},{passive:true});
+
+function drawLines(){
+  const svg=document.getElementById('hero-svg');if(!svg)return;
+  svg.innerHTML='';
+  const hero=document.querySelector('.hero');if(!hero)return;
+  const hr=hero.getBoundingClientRect();
+  document.querySelectorAll('.cdot').forEach(node=>{
+    const ring=node.querySelector('.cdot__ring');if(!ring)return;
+    const rr=ring.getBoundingClientRect();
+    const x1=rr.left+rr.width/2-hr.left;
+    const y1=rr.top+rr.height/2-hr.top;
+    const cx=parseFloat(node.dataset.charX||87);
+    const cy=parseFloat(node.dataset.charY||52);
+    const x2=hr.width*cx/100;
+    const y2=hr.height*cy/100;
+    const line=document.createElementNS('http://www.w3.org/2000/svg','line');
+    line.setAttribute('x1',x1);line.setAttribute('y1',y1);
+    line.setAttribute('x2',x2);line.setAttribute('y2',y2);
+    line.setAttribute('class','cline');line.dataset.nid=node.id;
+    svg.appendChild(line);
+    node.addEventListener('mouseenter',()=>{svg.querySelectorAll('.cline').forEach(l=>l.classList.toggle('hot',l.dataset.nid===node.id));});
+    node.addEventListener('mouseleave',()=>{svg.querySelectorAll('.cline').forEach(l=>l.classList.remove('hot'));});
+  });
+}
+
+window.addEventListener('resize',()=>{if(current==='home')drawLines();});
+
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('[data-page]').forEach(el=>{
+    el.addEventListener('click',()=>go(el.dataset.page));
+    if(el.tagName!=='BUTTON'&&el.tagName!=='A'){
+      el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go(el.datas
