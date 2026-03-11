@@ -1,4 +1,4 @@
-#<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -59,7 +59,7 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}ul,ol{list
 .img-ph{background:var(--bg-tint);border:1.5px dashed var(--border-md);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;color:var(--text-3);font-size:.72rem;font-style:italic;text-align:center;padding:var(--gap-md)}
 /* HERO */
 .hero{position:relative;width:100%;height:100svh;min-height:600px;overflow:hidden;background:#4eadcb}
-.hero__media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:right center;display:block}
+.hero__media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;display:block}
 .hero__svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:5}
 .cline{fill:none;stroke:rgba(255,255,255,.55);stroke-width:1.5;stroke-linecap:round;transition:stroke .2s,opacity .2s}
 .cline.hot{stroke:var(--accent);opacity:.95}
@@ -72,8 +72,6 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}ul,ol{list
 .cdot:hover .cdot__tip{opacity:1;transform:translateX(-50%) translateY(0)}
 .cdot__tip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:#fff;margin-top:-1px}
 .cdot__tip::before{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:var(--border)}
-.cdot__tip-num{font-size:.6rem;font-weight:700;color:var(--accent);background:var(--accent-bg);border-radius:100px;padding:.15rem .45rem;letter-spacing:.06em}
-.cdot__tip-lbl{font-size:.7rem;font-weight:600;color:var(--text)}
 .cdot__tip--flip{bottom:auto;top:calc(100% + 10px);transform:translateX(-50%) translateY(-5px)}
 .cdot:hover .cdot__tip--flip{transform:translateX(-50%) translateY(0)}
 .cdot__tip--flip::after{top:auto;bottom:100%;border-top-color:transparent;border-bottom-color:#fff;margin-top:0;margin-bottom:-1px}
@@ -210,18 +208,32 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}ul,ol{list
 <!-- HOME -->
 <div id="page-home" class="page">
   <section class="hero">
-    <!-- DOT POSITIONS (fine-tune left/top % if needed):
-         Hat left:63% top:25% | Glasses left:57% top:50% | Shoe left:79% top:88% -->
-    <video class="hero__media" id="hero-media" autoplay loop muted playsinline>
+    <!--
+      hero.mp4 must be in the same folder as index.html.
+      The video is the Procreate illustration animation.
+      
+      DOT POSITIONS — calibrated to the illustration:
+        Hat     : left:64.5%  top:21.8%
+        Glasses : left:52.2%  top:50.9%
+        Shoe    : left:77.9%  top:85.0%
+      
+      Line endpoints on the character (where lines point TO):
+        Hat line ends at character torso : charX=81  charY=55
+        Glasses line ends at character face : charX=83  charY=38
+        Shoe line ends at character feet : charX=80  charY=83
+    -->
+    <video class="hero__media" autoplay loop muted playsinline>
       <source src="hero.mp4" type="video/mp4">
     </video>
 
+    <!-- SVG overlay for connection lines — drawn by JS -->
     <svg class="hero__svg" id="hero-svg" aria-hidden="true"></svg>
 
-    <!-- DOT 1 — HAT — links to Interior Design project -->
-    <div class="cdot" id="cdot-hat" style="left:69%;top:37%"
-         data-char-x="82" data-char-y="54" data-page="cs1"
-         role="button" tabindex="0">
+    <!-- DOT 1: HAT — top area of illustration -->
+    <div class="cdot" id="cdot-hat"
+         style="left:64.5%;top:21.8%"
+         data-char-x="81" data-char-y="55"
+         data-page="cs1" role="button" tabindex="0">
       <div class="cdot__ring"></div>
       <div class="cdot__tip">
         <span class="cdot__tip-num">01</span>
@@ -229,10 +241,11 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}ul,ol{list
       </div>
     </div>
 
-    <!-- DOT 2 — GLASSES — links to YUHWA project -->
-    <div class="cdot" id="cdot-glasses" style="left:58%;top:66%"
-         data-char-x="82" data-char-y="54" data-page="cs2"
-         role="button" tabindex="0">
+    <!-- DOT 2: GLASSES — center of illustration -->
+    <div class="cdot" id="cdot-glasses"
+         style="left:52.2%;top:50.9%"
+         data-char-x="83" data-char-y="38"
+         data-page="cs2" role="button" tabindex="0">
       <div class="cdot__ring"></div>
       <div class="cdot__tip">
         <span class="cdot__tip-num">02</span>
@@ -240,14 +253,15 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}ul,ol{list
       </div>
     </div>
 
-    <!-- DOT 3 — SHOE — links to Botani'Kube (tooltip flips up because near bottom edge) -->
-    <div class="cdot" id="cdot-shoe" style="left:79%;top:93%"
-         data-char-x="82" data-char-y="54" data-page="cs3"
-         role="button" tabindex="0">
+    <!-- DOT 3: SHOE — bottom right, tooltip flips up -->
+    <div class="cdot" id="cdot-shoe"
+         style="left:77.9%;top:85.0%"
+         data-char-x="80" data-char-y="83"
+         data-page="cs3" role="button" tabindex="0">
       <div class="cdot__ring"></div>
       <div class="cdot__tip cdot__tip--flip">
         <span class="cdot__tip-num">03</span>
-        <span class="cdot__tip-lbl" data-i18n="cs3.dot">Botani&apos;Kube</span>
+        <span class="cdot__tip-lbl" data-i18n="cs3.dot">Botani&#39;Kube</span>
       </div>
     </div>
 
@@ -294,12 +308,7 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}ul,ol{list
       <div class="wli" data-page="cs1" role="button" tabindex="0">
         <span class="wli__num">01</span>
         <div>
-          <div class="wli__tags">
-            <span class="tag tag--accent" data-i18n="tag.uxcs">UX Case Study</span>
-            <span class="tag" data-i18n="tag.res">Research</span>
-            <span class="tag" data-i18n="tag.proto">Prototype</span>
-            <span class="tag" data-i18n="tag.solo">Solo</span>
-          </div>
+          <div class="wli__tags"><span class="tag tag--accent" data-i18n="tag.uxcs">UX Case Study</span><span class="tag" data-i18n="tag.res">Research</span><span class="tag" data-i18n="tag.proto">Prototype</span><span class="tag" data-i18n="tag.solo">Solo</span></div>
           <h2 class="wli__title" data-i18n="cs1.title">Interior Design Project Management Platform</h2>
           <p class="wli__desc" data-i18n="cs1.wdesc">Studio observation, informal interviews, competitive analysis, through to a mid-fidelity Figma prototype. Centred on client transparency and reducing designer administrative overhead.</p>
         </div>
@@ -308,12 +317,7 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}ul,ol{list
       <div class="wli" data-page="cs2" role="button" tabindex="0">
         <span class="wli__num">02</span>
         <div>
-          <div class="wli__tags">
-            <span class="tag" data-i18n="tag.brand">Brand Strategy</span>
-            <span class="tag" data-i18n="tag.uxr">UX Research</span>
-            <span class="tag" data-i18n="tag.pc">Product Concept</span>
-            <span class="tag" data-i18n="tag.solo">Solo</span>
-          </div>
+          <div class="wli__tags"><span class="tag" data-i18n="tag.brand">Brand Strategy</span><span class="tag" data-i18n="tag.uxr">UX Research</span><span class="tag" data-i18n="tag.pc">Product Concept</span><span class="tag" data-i18n="tag.solo">Solo</span></div>
           <h2 class="wli__title" data-i18n="cs2.title">YUHWA &mdash; K-Beauty Brand Concept</h2>
           <p class="wli__desc" data-i18n="cs2.wdesc">Competitive analysis and positioning gap identification for a premium K-beauty brand bridging Korean skincare heritage with scientific credibility.</p>
         </div>
@@ -322,12 +326,8 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}ul,ol{list
       <div class="wli" data-page="cs3" role="button" tabindex="0">
         <span class="wli__num">03</span>
         <div>
-          <div class="wli__tags">
-            <span class="tag" data-i18n="tag.ps">Product Strategy</span>
-            <span class="tag" data-i18n="tag.mr">Market Research</span>
-            <span class="tag" data-i18n="tag.t4">Team &middot; 4 people</span>
-          </div>
-          <h2 class="wli__title" data-i18n="cs3.title">Botani&apos;Kube &mdash; Smart Indoor Garden</h2>
+          <div class="wli__tags"><span class="tag" data-i18n="tag.ps">Product Strategy</span><span class="tag" data-i18n="tag.mr">Market Research</span><span class="tag" data-i18n="tag.t4">Team &middot; 4 people</span></div>
+          <h2 class="wli__title" data-i18n="cs3.title">Botani&#39;Kube &mdash; Smart Indoor Garden</h2>
           <p class="wli__desc" data-i18n="cs3.wdesc">Market gap analysis, user insight research, and product concept for an autonomous smart garden addressing plant care anxiety in urban households.</p>
         </div>
         <span class="wli__arr">&nearr;</span>
@@ -339,239 +339,203 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}ul,ol{list
 <!-- CASE STUDY 1 -->
 <div id="page-cs1" class="page">
   <div class="cs-cover"><div class="img-ph" style="height:280px">[ Cover &mdash; assets/cs1-cover.jpg ]</div></div>
-  <div class="cs-hdr">
-    <div class="container--narrow">
-      <div>
-        <button class="cs-back" data-page="work" data-i18n="cs.back">&larr; Back to work</button>
-        <div class="cs-tags">
-          <span class="tag tag--accent" data-i18n="tag.uxcs">UX Case Study</span>
-          <span class="tag" data-i18n="tag.concept">Concept project</span>
-          <span class="tag" data-i18n="tag.solo">Solo</span>
-        </div>
-        <h1 class="t-h1" style="margin-bottom:var(--gap-lg)" data-i18n="cs1.title">Interior Design Project Management Platform</h1>
+  <div class="cs-hdr"><div class="container--narrow"><div>
+    <button class="cs-back" data-page="work" data-i18n="cs.back">&larr; Back to work</button>
+    <div class="cs-tags"><span class="tag tag--accent" data-i18n="tag.uxcs">UX Case Study</span><span class="tag" data-i18n="tag.concept">Concept project</span><span class="tag" data-i18n="tag.solo">Solo</span></div>
+    <h1 class="t-h1" style="margin-bottom:var(--gap-lg)" data-i18n="cs1.title">Interior Design Project Management Platform</h1>
+  </div>
+  <div class="cs-meta">
+    <div class="cs-meta__item"><span class="cs-meta__lbl" data-i18n="m.role">My Role</span><span class="cs-meta__val" data-i18n="cs1.role">UX Researcher &amp; Designer</span></div>
+    <div class="cs-meta__item"><span class="cs-meta__lbl" data-i18n="m.tools">Tools</span><span class="cs-meta__val">Figma &middot; Notion</span></div>
+    <div class="cs-meta__item"><span class="cs-meta__lbl" data-i18n="m.type">Type</span><span class="cs-meta__val" data-i18n="cs1.type">Concept / Portfolio</span></div>
+  </div></div></div>
+  <div class="cs-body"><div class="cs-prose"><div class="cs-main">
+    <div class="cs-sec">
+      <div class="cs-sec__over"><span>01</span><span data-i18n="s.ctx">Context</span></div>
+      <h2 class="t-h2 cs-sec__h" data-i18n="cs1.s1h">The landscape</h2>
+      <p data-i18n="cs1.s1p1">Interior architecture projects involve many actors: designers, clients, contractors, suppliers and manufacturers. Projects can last several months and require constant coordination between all stakeholders.</p>
+      <p data-i18n="cs1.s1p2">During my work in an interior design studio, I observed that most project management still happens through a mix of <strong>phone calls, emails, spreadsheets and scattered documents</strong>. This creates delays, lost information and unnecessary stress for both designers and clients.</p>
+      <p data-i18n="cs1.s1p3">This project explores how a <strong>digital platform could centralise project communication</strong>, giving both the studio and the client a clearer view of the project at every stage.</p>
+    </div>
+    <div class="cs-sec">
+      <div class="cs-sec__over"><span>02</span><span data-i18n="s.prob">Problem Statement</span></div>
+      <h2 class="t-h2 cs-sec__h" data-i18n="cs1.s2h">The core tension</h2>
+      <p data-i18n="cs1.s2p">Interior designers need to coordinate complex projects involving many stakeholders, but the tools they currently use are fragmented and not adapted to their workflow.</p>
+      <div class="step-list">
+        <div class="step-item"><p data-i18n="cs1.st1">Designers spend a large portion of their time chasing information instead of designing</p></div>
+        <div class="step-item"><p data-i18n="cs1.st2">Clients lack visibility on project progress and often feel uncertain during long projects</p></div>
+        <div class="step-item"><p data-i18n="cs1.st3">Information gets lost between emails, calls and documents</p></div>
       </div>
-      <div class="cs-meta">
-        <div class="cs-meta__item"><span class="cs-meta__lbl" data-i18n="m.role">My Role</span><span class="cs-meta__val" data-i18n="cs1.role">UX Researcher &amp; Designer</span></div>
-        <div class="cs-meta__item"><span class="cs-meta__lbl" data-i18n="m.tools">Tools</span><span class="cs-meta__val">Figma &middot; Notion</span></div>
-        <div class="cs-meta__item"><span class="cs-meta__lbl" data-i18n="m.type">Type</span><span class="cs-meta__val" data-i18n="cs1.type">Concept / Portfolio</span></div>
+      <div class="cs-pq"><p data-i18n="cs1.pq">&ldquo;The challenge: design a simple, transparent platform that improves designer&ndash;client communication while reducing studio administrative overhead.&rdquo;</p></div>
+    </div>
+    <div class="cs-sec">
+      <div class="cs-sec__over"><span>03</span><span data-i18n="s.res">Research &amp; Discovery</span></div>
+      <h2 class="t-h2 cs-sec__h" data-i18n="cs1.s3h">Understanding the problem space</h2>
+      <div class="method-g">
+        <div class="method-item"><div class="mi-icon">&#128065;</div><div class="mi-title" data-i18n="cs1.m1t">Studio observation</div><div class="mi-desc" data-i18n="cs1.m1d">Designers constantly switching between phone calls, emails and spreadsheets; clients requesting updates; supplier information hard to track.</div></div>
+        <div class="method-item"><div class="mi-icon">&#128483;</div><div class="mi-title" data-i18n="cs1.m2t">Informal interviews</div><div class="mi-desc" data-i18n="cs1.m2d">Conversations about daily coordination challenges, communication with clients, supplier tracking, and pain points in current workflows.</div></div>
+        <div class="method-item"><div class="mi-icon">&#128269;</div><div class="mi-title" data-i18n="cs1.m3t">Competitive analysis</div><div class="mi-desc" data-i18n="cs1.m3d">Asana, Monday, Notion, Houzz Pro, Studio Designer. Most are either <strong>too generic</strong> or not designed for direct client access.</div></div>
       </div>
     </div>
-  </div>
-  <div class="cs-body">
-    <div class="cs-prose">
-      <div class="cs-main">
-        <div class="cs-sec">
-          <div class="cs-sec__over"><span>01</span><span data-i18n="s.ctx">Context</span></div>
-          <h2 class="t-h2 cs-sec__h" data-i18n="cs1.s1h">The landscape</h2>
-          <p data-i18n="cs1.s1p1">Interior architecture projects involve many actors: designers, clients, contractors, suppliers and manufacturers. Projects can last several months and require constant coordination between all stakeholders.</p>
-          <p data-i18n="cs1.s1p2">During my work in an interior design studio, I observed that most project management still happens through a mix of <strong>phone calls, emails, spreadsheets and scattered documents</strong>. This creates delays, lost information and unnecessary stress for both designers and clients.</p>
-          <p data-i18n="cs1.s1p3">This project explores how a <strong>digital platform could centralise project communication</strong>, giving both the studio and the client a clearer view of the project at every stage.</p>
-        </div>
-        <div class="cs-sec">
-          <div class="cs-sec__over"><span>02</span><span data-i18n="s.prob">Problem Statement</span></div>
-          <h2 class="t-h2 cs-sec__h" data-i18n="cs1.s2h">The core tension</h2>
-          <p data-i18n="cs1.s2p">Interior designers need to coordinate complex projects involving many stakeholders, but the tools they currently use are fragmented and not adapted to their workflow.</p>
-          <div class="step-list">
-            <div class="step-item"><p data-i18n="cs1.st1">Designers spend a large portion of their time chasing information instead of designing</p></div>
-            <div class="step-item"><p data-i18n="cs1.st2">Clients lack visibility on project progress and often feel uncertain during long projects</p></div>
-            <div class="step-item"><p data-i18n="cs1.st3">Information gets lost between emails, calls and documents</p></div>
-          </div>
-          <div class="cs-pq"><p data-i18n="cs1.pq">&ldquo;The challenge: design a simple, transparent platform that improves designer&ndash;client communication while reducing studio administrative overhead.&rdquo;</p></div>
-        </div>
-        <div class="cs-sec">
-          <div class="cs-sec__over"><span>03</span><span data-i18n="s.res">Research &amp; Discovery</span></div>
-          <h2 class="t-h2 cs-sec__h" data-i18n="cs1.s3h">Understanding the problem space</h2>
-          <div class="method-g">
-            <div class="method-item"><div class="mi-icon">&#128065;</div><div class="mi-title" data-i18n="cs1.m1t">Studio observation</div><div class="mi-desc" data-i18n="cs1.m1d">Designers constantly switching between phone calls, emails and spreadsheets; clients requesting updates; supplier information hard to track.</div></div>
-            <div class="method-item"><div class="mi-icon">&#128483;</div><div class="mi-title" data-i18n="cs1.m2t">Informal interviews</div><div class="mi-desc" data-i18n="cs1.m2d">Conversations about daily coordination challenges, communication with clients, supplier tracking, and pain points in current workflows.</div></div>
-            <div class="method-item"><div class="mi-icon">&#128269;</div><div class="mi-title" data-i18n="cs1.m3t">Competitive analysis</div><div class="mi-desc" data-i18n="cs1.m3d">Asana, Monday, Notion, Houzz Pro, Studio Designer. Most are either <strong>too generic</strong> or not designed for direct client access.</div></div>
-          </div>
-        </div>
-        <div class="cs-sec">
-          <div class="cs-sec__over"><span>04</span><span data-i18n="s.ins">Key Insights</span></div>
-          <h2 class="t-h2 cs-sec__h" data-i18n="cs1.s4h">What the research revealed</h2>
-          <div class="insight-g">
-            <div class="insight-c"><div class="ins-num">01</div><p class="ins-body" data-i18n="cs1.i1"><strong>Communication with clients consumes a large amount of time.</strong> Many interactions could be simplified with direct access to updates.</p></div>
-            <div class="insight-c"><div class="ins-num">02</div><p class="ins-body" data-i18n="cs1.i2"><strong>Information is scattered across multiple tools.</strong> Fragmentation increases risk of miscommunication and delays.</p></div>
-            <div class="insight-c"><div class="ins-num">03</div><p class="ins-body" data-i18n="cs1.i3"><strong>Clients want reassurance during long projects.</strong> Transparency plays a key role in building trust.</p></div>
-            <div class="insight-c"><div class="ins-num">04</div><p class="ins-body" data-i18n="cs1.i4"><strong>Designers want to focus on creativity.</strong> Any solution should reduce administrative overhead, not add to it.</p></div>
-          </div>
-        </div>
-        <div class="cs-sec">
-          <div class="cs-sec__over"><span>05</span><span data-i18n="s.sol">Solution</span></div>
-          <h2 class="t-h2 cs-sec__h" data-i18n="cs1.s5h">The proposed platform</h2>
-          <div class="module-g">
-            <div class="module-item"><div class="mi-title" data-i18n="cs1.mod1t">Appointment system</div><p class="mi-desc" data-i18n="cs1.mod1d">Simple scheduling flow &mdash; clients book their first consultation without contacting the studio manually.</p></div>
-            <div class="module-item"><div class="mi-title" data-i18n="cs1.mod2t">Project dashboard</div><p class="mi-desc" data-i18n="cs1.mod2d">Personalised project page with overview, moodboards, current phase, and milestones.</p></div>
-            <div class="module-item" style="grid-column:span 2"><div class="mi-title" data-i18n="cs1.mod3t">Project timeline</div><p class="mi-desc" data-i18n="cs1.mod3d">Visual timeline of project stages &mdash; improving transparency and reducing uncertainty for clients.</p></div>
-          </div>
-        </div>
-        <div class="cs-sec">
-          <div class="cs-sec__over"><span>06</span><span data-i18n="s.ref">Reflection &amp; Learnings</span></div>
-          <h2 class="t-h2 cs-sec__h" data-i18n="cs1.s6h">What I learned</h2>
-          <p data-i18n="cs1.s6p">This project showed how <strong>deeply work practices influence product design</strong>. Interior designers care about how their tools reflect their professional image to clients.</p>
-          <div class="cs-pq"><p data-i18n="cs1.s6q">&ldquo;Next steps: testing with more designers, exploring mobile features for on-site updates, designing supplier management, and developing higher fidelity UI.&rdquo;</p></div>
-        </div>
+    <div class="cs-sec">
+      <div class="cs-sec__over"><span>04</span><span data-i18n="s.ins">Key Insights</span></div>
+      <h2 class="t-h2 cs-sec__h" data-i18n="cs1.s4h">What the research revealed</h2>
+      <div class="insight-g">
+        <div class="insight-c"><div class="ins-num">01</div><p class="ins-body" data-i18n="cs1.i1"><strong>Communication with clients consumes a large amount of time.</strong> Many interactions could be simplified with direct access to updates.</p></div>
+        <div class="insight-c"><div class="ins-num">02</div><p class="ins-body" data-i18n="cs1.i2"><strong>Information is scattered across multiple tools.</strong> Fragmentation increases risk of miscommunication and delays.</p></div>
+        <div class="insight-c"><div class="ins-num">03</div><p class="ins-body" data-i18n="cs1.i3"><strong>Clients want reassurance during long projects.</strong> Transparency plays a key role in building trust.</p></div>
+        <div class="insight-c"><div class="ins-num">04</div><p class="ins-body" data-i18n="cs1.i4"><strong>Designers want to focus on creativity.</strong> Any solution should reduce administrative overhead, not add to it.</p></div>
       </div>
-      <aside class="cs-margin">
-        <div class="margin-note"><span class="margin-note__lbl" data-i18n="mn.start">Starting point</span><p data-i18n="cs1.mn1">Working inside the studio gave me access to real friction &mdash; not a hypothetical version of it.</p></div>
-        <div class="margin-note" style="margin-top:var(--gap-xl)"><span class="margin-note__lbl" data-i18n="mn.dec">Design decision</span><p data-i18n="cs1.mn2">I centred the platform on the client experience because client anxiety was the primary source of unnecessary designer workload.</p></div>
-        <div class="margin-note" style="margin-top:var(--gap-xl)"><span class="margin-note__lbl" data-i18n="mn.next">Next step</span><p data-i18n="cs1.mn3">Supplier management &mdash; linking deliveries to the client-facing timeline &mdash; is the most complex remaining problem.</p></div>
-      </aside>
+    </div>
+    <div class="cs-sec">
+      <div class="cs-sec__over"><span>05</span><span data-i18n="s.sol">Solution</span></div>
+      <h2 class="t-h2 cs-sec__h" data-i18n="cs1.s5h">The proposed platform</h2>
+      <div class="module-g">
+        <div class="module-item"><div class="mi-title" data-i18n="cs1.mod1t">Appointment system</div><p class="mi-desc" data-i18n="cs1.mod1d">Simple scheduling flow &mdash; clients book their first consultation without contacting the studio manually.</p></div>
+        <div class="module-item"><div class="mi-title" data-i18n="cs1.mod2t">Project dashboard</div><p class="mi-desc" data-i18n="cs1.mod2d">Personalised project page with overview, moodboards, current phase, and milestones.</p></div>
+        <div class="module-item" style="grid-column:span 2"><div class="mi-title" data-i18n="cs1.mod3t">Project timeline</div><p class="mi-desc" data-i18n="cs1.mod3d">Visual timeline of project stages &mdash; improving transparency and reducing uncertainty for clients.</p></div>
+      </div>
+    </div>
+    <div class="cs-sec">
+      <div class="cs-sec__over"><span>06</span><span data-i18n="s.ref">Reflection &amp; Learnings</span></div>
+      <h2 class="t-h2 cs-sec__h" data-i18n="cs1.s6h">What I learned</h2>
+      <p data-i18n="cs1.s6p">This project showed how <strong>deeply work practices influence product design</strong>. Interior designers care about how their tools reflect their professional image to clients.</p>
+      <div class="cs-pq"><p data-i18n="cs1.s6q">&ldquo;Next steps: testing with more designers, exploring mobile features for on-site updates, designing supplier management, and developing higher fidelity UI.&rdquo;</p></div>
     </div>
   </div>
+  <aside class="cs-margin">
+    <div class="margin-note"><span class="margin-note__lbl" data-i18n="mn.start">Starting point</span><p data-i18n="cs1.mn1">Working inside the studio gave me access to real friction &mdash; not a hypothetical version of it.</p></div>
+    <div class="margin-note" style="margin-top:var(--gap-xl)"><span class="margin-note__lbl" data-i18n="mn.dec">Design decision</span><p data-i18n="cs1.mn2">I centred the platform on the client experience because client anxiety was the primary source of unnecessary designer workload.</p></div>
+    <div class="margin-note" style="margin-top:var(--gap-xl)"><span class="margin-note__lbl" data-i18n="mn.next">Next step</span><p data-i18n="cs1.mn3">Supplier management &mdash; linking deliveries to the client-facing timeline &mdash; is the most complex remaining problem.</p></div>
+  </aside>
+  </div></div></div>
 </div>
 
 <!-- CASE STUDY 2 -->
 <div id="page-cs2" class="page">
   <div class="cs-cover"><div class="img-ph" style="height:280px">[ Cover &mdash; assets/cs2-cover.jpg ]</div></div>
-  <div class="cs-hdr">
-    <div class="container--narrow">
-      <div>
-        <button class="cs-back" data-page="work" data-i18n="cs.back">&larr; Back to work</button>
-        <div class="cs-tags">
-          <span class="tag" data-i18n="tag.brand">Brand Strategy</span>
-          <span class="tag" data-i18n="tag.uxr">UX Research</span>
-          <span class="tag" data-i18n="tag.pc">Product Concept</span>
-          <span class="tag" data-i18n="tag.solo">Solo</span>
-        </div>
-        <h1 class="t-h1" style="margin-bottom:var(--gap-lg)" data-i18n="cs2.title">YUHWA &mdash; K-Beauty Brand Concept</h1>
-      </div>
-      <div class="cs-meta">
-        <div class="cs-meta__item"><span class="cs-meta__lbl" data-i18n="m.role">My Role</span><span class="cs-meta__val" data-i18n="cs2.role">UX Research &middot; Brand Strategy &middot; Product Concept</span></div>
-        <div class="cs-meta__item"><span class="cs-meta__lbl" data-i18n="m.dur">Duration</span><span class="cs-meta__val" data-i18n="cs2.dur">6 weeks</span></div>
-        <div class="cs-meta__item"><span class="cs-meta__lbl" data-i18n="m.tools">Tools</span><span class="cs-meta__val">Canva &middot; Adobe CC &middot; Notion</span></div>
-        <div class="cs-meta__item"><span class="cs-meta__lbl" data-i18n="m.type">Type</span><span class="cs-meta__val" data-i18n="cs2.type">Academic / Concept project</span></div>
+  <div class="cs-hdr"><div class="container--narrow"><div>
+    <button class="cs-back" data-page="work" data-i18n="cs.back">&larr; Back to work</button>
+    <div class="cs-tags"><span class="tag" data-i18n="tag.brand">Brand Strategy</span><span class="tag" data-i18n="tag.uxr">UX Research</span><span class="tag" data-i18n="tag.pc">Product Concept</span><span class="tag" data-i18n="tag.solo">Solo</span></div>
+    <h1 class="t-h1" style="margin-bottom:var(--gap-lg)" data-i18n="cs2.title">YUHWA &mdash; K-Beauty Brand Concept</h1>
+  </div>
+  <div class="cs-meta">
+    <div class="cs-meta__item"><span class="cs-meta__lbl" data-i18n="m.role">My Role</span><span class="cs-meta__val" data-i18n="cs2.role">UX Research &middot; Brand Strategy &middot; Product Concept</span></div>
+    <div class="cs-meta__item"><span class="cs-meta__lbl" data-i18n="m.dur">Duration</span><span class="cs-meta__val" data-i18n="cs2.dur">6 weeks</span></div>
+    <div class="cs-meta__item"><span class="cs-meta__lbl" data-i18n="m.tools">Tools</span><span class="cs-meta__val">Canva &middot; Adobe CC &middot; Notion</span></div>
+    <div class="cs-meta__item"><span class="cs-meta__lbl" data-i18n="m.type">Type</span><span class="cs-meta__val" data-i18n="cs2.type">Academic / Concept project</span></div>
+  </div></div></div>
+  <div class="cs-body"><div class="cs-prose"><div class="cs-main">
+    <div class="cs-sec">
+      <div class="cs-sec__over"><span>01</span><span data-i18n="s.ctx">Context</span></div>
+      <h2 class="t-h2 cs-sec__h" data-i18n="cs2.s1h">The landscape</h2>
+      <p data-i18n="cs2.s1p1">K-beauty has become one of the most influential segments in the global skincare industry. Western consumers increasingly seek Korean skincare products for their innovation, layered routines and ingredient philosophy.</p>
+      <p data-i18n="cs2.s1p2">However, many brands entering Western markets face a challenge: balancing cultural authenticity with scientific credibility. This project explored how a new brand could occupy that space.</p>
+    </div>
+    <div class="cs-sec">
+      <div class="cs-sec__over"><span>02</span><span data-i18n="s.prob">Problem Statement</span></div>
+      <h2 class="t-h2 cs-sec__h" data-i18n="cs2.s2h">The core tension</h2>
+      <div class="cs-pq"><p data-i18n="cs2.pq">&ldquo;The challenge: design a brand concept that bridges Korean ingredient heritage with credible scientific validation &mdash; without losing either dimension.&rdquo;</p></div>
+    </div>
+    <div class="cs-sec">
+      <div class="cs-sec__over"><span>03</span><span data-i18n="s.ins">Key Insights</span></div>
+      <h2 class="t-h2 cs-sec__h" data-i18n="cs2.s3h">What the research revealed</h2>
+      <div class="insight-g">
+        <div class="insight-c"><div class="ins-num">01</div><p class="ins-body" data-i18n="cs2.i1"><strong>Western consumers seek authenticity.</strong> Traditional ingredients and rituals are part of the perceived value.</p></div>
+        <div class="insight-c"><div class="ins-num">02</div><p class="ins-body" data-i18n="cs2.i2"><strong>Scientific credibility builds trust.</strong> Clinical validation and dermatological research play a key role.</p></div>
+        <div class="insight-c" style="grid-column:span 2"><div class="ins-num">03</div><p class="ins-body" data-i18n="cs2.i3"><strong>Brand identity shapes perceived product quality.</strong> A coherent brand universe is essential in the premium skincare market.</p></div>
       </div>
     </div>
-  </div>
-  <div class="cs-body">
-    <div class="cs-prose">
-      <div class="cs-main">
-        <div class="cs-sec">
-          <div class="cs-sec__over"><span>01</span><span data-i18n="s.ctx">Context</span></div>
-          <h2 class="t-h2 cs-sec__h" data-i18n="cs2.s1h">The landscape</h2>
-          <p data-i18n="cs2.s1p1">K-beauty has become one of the most influential segments in the global skincare industry. Western consumers increasingly seek Korean skincare products for their innovation, layered routines and ingredient philosophy.</p>
-          <p data-i18n="cs2.s1p2">However, many brands entering Western markets face a challenge: balancing cultural authenticity with scientific credibility. This project explored how a new brand could occupy that space.</p>
-        </div>
-        <div class="cs-sec">
-          <div class="cs-sec__over"><span>02</span><span data-i18n="s.prob">Problem Statement</span></div>
-          <h2 class="t-h2 cs-sec__h" data-i18n="cs2.s2h">The core tension</h2>
-          <div class="cs-pq"><p data-i18n="cs2.pq">&ldquo;The challenge: design a brand concept that bridges Korean ingredient heritage with credible scientific validation &mdash; without losing either dimension.&rdquo;</p></div>
-        </div>
-        <div class="cs-sec">
-          <div class="cs-sec__over"><span>03</span><span data-i18n="s.ins">Key Insights</span></div>
-          <h2 class="t-h2 cs-sec__h" data-i18n="cs2.s3h">What the research revealed</h2>
-          <div class="insight-g">
-            <div class="insight-c"><div class="ins-num">01</div><p class="ins-body" data-i18n="cs2.i1"><strong>Western consumers seek authenticity.</strong> Traditional ingredients and rituals are part of the perceived value.</p></div>
-            <div class="insight-c"><div class="ins-num">02</div><p class="ins-body" data-i18n="cs2.i2"><strong>Scientific credibility builds trust.</strong> Clinical validation and dermatological research play a key role.</p></div>
-            <div class="insight-c" style="grid-column:span 2"><div class="ins-num">03</div><p class="ins-body" data-i18n="cs2.i3"><strong>Brand identity shapes perceived product quality.</strong> A coherent brand universe is essential in the premium skincare market.</p></div>
-          </div>
-        </div>
-        <div class="cs-sec">
-          <div class="cs-sec__over"><span>04</span><span data-i18n="s.dev">Concept Development</span></div>
-          <h2 class="t-h2 cs-sec__h" data-i18n="cs2.s4h">YUHWA (&#50836;&#54868;)</h2>
-          <p data-i18n="cs2.s4p">YUHWA draws on the Korean word for softness and harmony. The concept centres on balance between traditional Korean herbal medicine (Hanbang) and modern dermatological science.</p>
-          <div class="module-g">
-            <div class="module-item"><div class="mi-title" data-i18n="cs2.mod1t">Product philosophy</div><p class="mi-desc" data-i18n="cs2.mod1d">Hanbang ingredients + dermatological research = cultural depth and scientific credibility in one.</p></div>
-            <div class="module-item"><div class="mi-title" data-i18n="cs2.mod2t">Product architecture</div><p class="mi-desc" data-i18n="cs2.mod2d">A three-product ritual that simplifies the skincare routine while keeping the layered Korean skincare philosophy intact.</p></div>
-            <div class="module-item" style="grid-column:span 2"><div class="mi-title" data-i18n="cs2.mod3t">Visual identity</div><p class="mi-desc" data-i18n="cs2.mod3d">Muted natural palette, editorial typography, minimal packaging, bilingual brand language. Refined, calm, culturally grounded.</p></div>
-          </div>
-        </div>
-        <div class="cs-sec">
-          <div class="cs-sec__over"><span>05</span><span data-i18n="s.ref">Reflection &amp; Learnings</span></div>
-          <h2 class="t-h2 cs-sec__h" data-i18n="cs2.s5h">What I learned</h2>
-          <p data-i18n="cs2.s5p1">Branding is closely linked to user perception and trust. Consumers interpret signals from storytelling, design, and cultural references all at once.</p>
-          <p data-i18n="cs2.s5p2">The hardest challenge: translating Korean cultural elements without flattening or appropriating them for a Western audience.</p>
-        </div>
+    <div class="cs-sec">
+      <div class="cs-sec__over"><span>04</span><span data-i18n="s.dev">Concept Development</span></div>
+      <h2 class="t-h2 cs-sec__h" data-i18n="cs2.s4h">YUHWA (&#50836;&#54868;)</h2>
+      <p data-i18n="cs2.s4p">YUHWA draws on the Korean word for softness and harmony. The concept centres on balance between traditional Korean herbal medicine (Hanbang) and modern dermatological science.</p>
+      <div class="module-g">
+        <div class="module-item"><div class="mi-title" data-i18n="cs2.mod1t">Product philosophy</div><p class="mi-desc" data-i18n="cs2.mod1d">Hanbang ingredients + dermatological research = cultural depth and scientific credibility in one.</p></div>
+        <div class="module-item"><div class="mi-title" data-i18n="cs2.mod2t">Product architecture</div><p class="mi-desc" data-i18n="cs2.mod2d">A three-product ritual that simplifies the skincare routine while keeping the layered Korean skincare philosophy intact.</p></div>
+        <div class="module-item" style="grid-column:span 2"><div class="mi-title" data-i18n="cs2.mod3t">Visual identity</div><p class="mi-desc" data-i18n="cs2.mod3d">Muted natural palette, editorial typography, minimal packaging, bilingual brand language. Refined, calm, culturally grounded.</p></div>
       </div>
-      <aside class="cs-margin">
-        <div class="margin-note"><span class="margin-note__lbl" data-i18n="mn.opp">The opportunity</span><p data-i18n="cs2.mn1">The positioning map was the most clarifying tool &mdash; seeing where every major brand sat made the gap immediately visible.</p></div>
-        <div class="margin-note" style="margin-top:var(--gap-xl)"><span class="margin-note__lbl" data-i18n="mn.tens">Key tension</span><p data-i18n="cs2.mn2">Balancing cultural authenticity with Western legibility, without flattening cultural nuance, was the hardest design challenge.</p></div>
-        <div class="margin-note" style="margin-top:var(--gap-xl)"><span class="margin-note__lbl" data-i18n="mn.next">What I&rsquo;d do next</span><p data-i18n="cs2.mn3">Test the brand concept with both Korean and Western consumers to see whether cultural signals land as intended.</p></div>
-      </aside>
+    </div>
+    <div class="cs-sec">
+      <div class="cs-sec__over"><span>05</span><span data-i18n="s.ref">Reflection &amp; Learnings</span></div>
+      <h2 class="t-h2 cs-sec__h" data-i18n="cs2.s5h">What I learned</h2>
+      <p data-i18n="cs2.s5p1">Branding is closely linked to user perception and trust. Consumers interpret signals from storytelling, design, and cultural references all at once.</p>
+      <p data-i18n="cs2.s5p2">The hardest challenge: translating Korean cultural elements without flattening or appropriating them for a Western audience.</p>
     </div>
   </div>
+  <aside class="cs-margin">
+    <div class="margin-note"><span class="margin-note__lbl" data-i18n="mn.opp">The opportunity</span><p data-i18n="cs2.mn1">The positioning map was the most clarifying tool &mdash; seeing where every major brand sat made the gap immediately visible.</p></div>
+    <div class="margin-note" style="margin-top:var(--gap-xl)"><span class="margin-note__lbl" data-i18n="mn.tens">Key tension</span><p data-i18n="cs2.mn2">Balancing cultural authenticity with Western legibility, without flattening cultural nuance, was the hardest design challenge.</p></div>
+    <div class="margin-note" style="margin-top:var(--gap-xl)"><span class="margin-note__lbl" data-i18n="mn.next">What I&rsquo;d do next</span><p data-i18n="cs2.mn3">Test the brand concept with both Korean and Western consumers to see whether cultural signals land as intended.</p></div>
+  </aside>
+  </div></div></div>
 </div>
 
 <!-- CASE STUDY 3 -->
 <div id="page-cs3" class="page">
   <div class="cs-cover"><div class="img-ph" style="height:280px">[ Cover &mdash; assets/cs3-cover.jpg ]</div></div>
-  <div class="cs-hdr">
-    <div class="container--narrow">
-      <div>
-        <button class="cs-back" data-page="work" data-i18n="cs.back">&larr; Back to work</button>
-        <div class="cs-tags">
-          <span class="tag" data-i18n="tag.ps">Product Strategy</span>
-          <span class="tag" data-i18n="tag.mr">Market Research</span>
-          <span class="tag" data-i18n="tag.t4">Team &middot; 4 people</span>
-        </div>
-        <h1 class="t-h1" style="margin-bottom:var(--gap-lg)" data-i18n="cs3.title">Botani&apos;Kube &mdash; Smart Indoor Garden</h1>
-      </div>
-      <div class="cs-meta">
-        <div class="cs-meta__item"><span class="cs-meta__lbl" data-i18n="m.role">My Role</span><span class="cs-meta__val" data-i18n="cs3.role">Market Research &middot; Product Strategy</span></div>
-        <div class="cs-meta__item"><span class="cs-meta__lbl" data-i18n="m.team">Team</span><span class="cs-meta__val" data-i18n="cs3.team">4 people</span></div>
-        <div class="cs-meta__item"><span class="cs-meta__lbl" data-i18n="m.dur">Duration</span><span class="cs-meta__val" data-i18n="cs3.dur">6 weeks</span></div>
-        <div class="cs-meta__item"><span class="cs-meta__lbl" data-i18n="m.tools">Tools</span><span class="cs-meta__val">Google Forms &middot; Canva &middot; Adobe CC &middot; Notion</span></div>
+  <div class="cs-hdr"><div class="container--narrow"><div>
+    <button class="cs-back" data-page="work" data-i18n="cs.back">&larr; Back to work</button>
+    <div class="cs-tags"><span class="tag" data-i18n="tag.ps">Product Strategy</span><span class="tag" data-i18n="tag.mr">Market Research</span><span class="tag" data-i18n="tag.t4">Team &middot; 4 people</span></div>
+    <h1 class="t-h1" style="margin-bottom:var(--gap-lg)" data-i18n="cs3.title">Botani&#39;Kube &mdash; Smart Indoor Garden</h1>
+  </div>
+  <div class="cs-meta">
+    <div class="cs-meta__item"><span class="cs-meta__lbl" data-i18n="m.role">My Role</span><span class="cs-meta__val" data-i18n="cs3.role">Market Research &middot; Product Strategy</span></div>
+    <div class="cs-meta__item"><span class="cs-meta__lbl" data-i18n="m.team">Team</span><span class="cs-meta__val" data-i18n="cs3.team">4 people</span></div>
+    <div class="cs-meta__item"><span class="cs-meta__lbl" data-i18n="m.dur">Duration</span><span class="cs-meta__val" data-i18n="cs3.dur">6 weeks</span></div>
+    <div class="cs-meta__item"><span class="cs-meta__lbl" data-i18n="m.tools">Tools</span><span class="cs-meta__val">Google Forms &middot; Canva &middot; Adobe CC &middot; Notion</span></div>
+  </div></div></div>
+  <div class="cs-body"><div class="cs-prose"><div class="cs-main">
+    <div class="cs-sec">
+      <div class="cs-sec__over"><span>01</span><span data-i18n="s.ctx">Context</span></div>
+      <h2 class="t-h2 cs-sec__h" data-i18n="cs3.s1h">The landscape</h2>
+      <p data-i18n="cs3.s1p1">Urban lifestyles increasingly limit access to outdoor space. Indoor gardening products have emerged as a way for city residents to reconnect with plants, even in small apartments.</p>
+      <p data-i18n="cs3.s1p2">Yet many consumers remain hesitant &mdash; not because of lack of interest, but because they&rsquo;re afraid of failing.</p>
+    </div>
+    <div class="cs-sec">
+      <div class="cs-sec__over"><span>02</span><span data-i18n="s.prob">Problem Statement</span></div>
+      <h2 class="t-h2 cs-sec__h" data-i18n="cs3.s2h">The plant anxiety paradox</h2>
+      <div class="cs-pq"><p data-i18n="cs3.pq">&ldquo;A key reason people don&rsquo;t buy plants is the fear of not being able to keep them alive. The challenge: how might a product remove that anxiety entirely?&rdquo;</p></div>
+    </div>
+    <div class="cs-sec">
+      <div class="cs-sec__over"><span>03</span><span data-i18n="s.ins">Key Insights</span></div>
+      <h2 class="t-h2 cs-sec__h" data-i18n="cs3.s3h">What the research revealed</h2>
+      <div class="insight-g">
+        <div class="insight-c"><div class="ins-num">01</div><p class="ins-body" data-i18n="cs3.i1"><strong>Plant care anxiety is a major barrier.</strong> Automation directly reduces this stress.</p></div>
+        <div class="insight-c"><div class="ins-num">02</div><p class="ins-body" data-i18n="cs3.i2"><strong>Consumers dislike restrictive ecosystems.</strong> Users prefer flexibility over proprietary capsule lock-in.</p></div>
+        <div class="insight-c" style="grid-column:span 2"><div class="ins-num">03</div><p class="ins-body" data-i18n="cs3.i3"><strong>Sustainability matters.</strong> Reducing waste can be a strong differentiator for eco-conscious urban consumers.</p></div>
       </div>
     </div>
-  </div>
-  <div class="cs-body">
-    <div class="cs-prose">
-      <div class="cs-main">
-        <div class="cs-sec">
-          <div class="cs-sec__over"><span>01</span><span data-i18n="s.ctx">Context</span></div>
-          <h2 class="t-h2 cs-sec__h" data-i18n="cs3.s1h">The landscape</h2>
-          <p data-i18n="cs3.s1p1">Urban lifestyles increasingly limit access to outdoor space. Indoor gardening products have emerged as a way for city residents to reconnect with plants, even in small apartments.</p>
-          <p data-i18n="cs3.s1p2">Yet many consumers remain hesitant &mdash; not because of lack of interest, but because they&rsquo;re afraid of failing.</p>
-        </div>
-        <div class="cs-sec">
-          <div class="cs-sec__over"><span>02</span><span data-i18n="s.prob">Problem Statement</span></div>
-          <h2 class="t-h2 cs-sec__h" data-i18n="cs3.s2h">The plant anxiety paradox</h2>
-          <div class="cs-pq"><p data-i18n="cs3.pq">&ldquo;A key reason people don&rsquo;t buy plants is the fear of not being able to keep them alive. The challenge: how might a product remove that anxiety entirely?&rdquo;</p></div>
-        </div>
-        <div class="cs-sec">
-          <div class="cs-sec__over"><span>03</span><span data-i18n="s.ins">Key Insights</span></div>
-          <h2 class="t-h2 cs-sec__h" data-i18n="cs3.s3h">What the research revealed</h2>
-          <div class="insight-g">
-            <div class="insight-c"><div class="ins-num">01</div><p class="ins-body" data-i18n="cs3.i1"><strong>Plant care anxiety is a major barrier.</strong> Automation directly reduces this stress.</p></div>
-            <div class="insight-c"><div class="ins-num">02</div><p class="ins-body" data-i18n="cs3.i2"><strong>Consumers dislike restrictive ecosystems.</strong> Users prefer flexibility over proprietary capsule lock-in.</p></div>
-            <div class="insight-c" style="grid-column:span 2"><div class="ins-num">03</div><p class="ins-body" data-i18n="cs3.i3"><strong>Sustainability matters.</strong> Reducing waste can be a strong differentiator for eco-conscious urban consumers.</p></div>
-          </div>
-        </div>
-        <div class="cs-sec">
-          <div class="cs-sec__over"><span>04</span><span data-i18n="s.sol">Solution</span></div>
-          <h2 class="t-h2 cs-sec__h" data-i18n="cs3.s4h">Botani&apos;Kube</h2>
-          <p data-i18n="cs3.s4p">A smart indoor garden designed for urban apartments, integrating automated features to simplify plant care entirely.</p>
-          <div class="module-g">
-            <div class="module-item"><div class="mi-title" data-i18n="cs3.mod1t">Automated features</div><p class="mi-desc" data-i18n="cs3.mod1d">Automatic irrigation, integrated LED grow lighting, and smart humidity sensors &mdash; no daily maintenance needed.</p></div>
-            <div class="module-item"><div class="mi-title" data-i18n="cs3.mod2t">Open seed ecosystem</div><p class="mi-desc" data-i18n="cs3.mod2d">Standard seeds rather than proprietary capsules &mdash; more freedom, less brand dependency.</p></div>
-            <div class="module-item" style="grid-column:span 2"><div class="mi-title" data-i18n="cs3.mod3t">Sustainability focus</div><p class="mi-desc" data-i18n="cs3.mod3d">Integrated compost module for reusing organic kitchen waste &mdash; supporting a more circular growing approach.</p></div>
-          </div>
-        </div>
-        <div class="cs-sec">
-          <div class="cs-sec__over"><span>05</span><span data-i18n="s.ref">Reflection &amp; Learnings</span></div>
-          <h2 class="t-h2 cs-sec__h" data-i18n="cs3.s5h">What I learned</h2>
-          <p data-i18n="cs3.s5p">The most important insight was the role of <strong>problem framing</strong>. We initially approached this as a convenience product. Research revealed the real barrier was emotional anxiety &mdash; a fundamentally different problem to solve.</p>
-          <div class="cs-pq"><p data-i18n="cs3.s5q">&ldquo;This project reinforced the importance of deeply understanding user motivations before designing solutions.&rdquo;</p></div>
-        </div>
+    <div class="cs-sec">
+      <div class="cs-sec__over"><span>04</span><span data-i18n="s.sol">Solution</span></div>
+      <h2 class="t-h2 cs-sec__h" data-i18n="cs3.s4h">Botani&#39;Kube</h2>
+      <p data-i18n="cs3.s4p">A smart indoor garden designed for urban apartments, integrating automated features to simplify plant care entirely.</p>
+      <div class="module-g">
+        <div class="module-item"><div class="mi-title" data-i18n="cs3.mod1t">Automated features</div><p class="mi-desc" data-i18n="cs3.mod1d">Automatic irrigation, integrated LED grow lighting, and smart humidity sensors &mdash; no daily maintenance needed.</p></div>
+        <div class="module-item"><div class="mi-title" data-i18n="cs3.mod2t">Open seed ecosystem</div><p class="mi-desc" data-i18n="cs3.mod2d">Standard seeds rather than proprietary capsules &mdash; more freedom, less brand dependency.</p></div>
+        <div class="module-item" style="grid-column:span 2"><div class="mi-title" data-i18n="cs3.mod3t">Sustainability focus</div><p class="mi-desc" data-i18n="cs3.mod3d">Integrated compost module for reusing organic kitchen waste &mdash; supporting a more circular growing approach.</p></div>
       </div>
-      <aside class="cs-margin">
-        <div class="margin-note"><span class="margin-note__lbl" data-i18n="mn.framing">Problem framing</span><p data-i18n="cs3.mn1">We almost designed around the wrong problem (convenience) until research revealed anxiety as the core blocker.</p></div>
-        <div class="margin-note" style="margin-top:var(--gap-xl)"><span class="margin-note__lbl" data-i18n="mn.diff">Key differentiator</span><p data-i18n="cs3.mn2">The open seed standard was both functional and strategic &mdash; directly addressing competitor lock-in frustration.</p></div>
-        <div class="margin-note" style="margin-top:var(--gap-xl)"><span class="margin-note__lbl" data-i18n="mn.next">What I&rsquo;d do next</span><p data-i18n="cs3.mn3">Validate whether anxiety framing resonates in user interviews, and test price point against willingness-to-pay.</p></div>
-      </aside>
+    </div>
+    <div class="cs-sec">
+      <div class="cs-sec__over"><span>05</span><span data-i18n="s.ref">Reflection &amp; Learnings</span></div>
+      <h2 class="t-h2 cs-sec__h" data-i18n="cs3.s5h">What I learned</h2>
+      <p data-i18n="cs3.s5p">The most important insight was the role of <strong>problem framing</strong>. We initially approached this as a convenience product. Research revealed the real barrier was emotional anxiety &mdash; a fundamentally different problem to solve.</p>
+      <div class="cs-pq"><p data-i18n="cs3.s5q">&ldquo;This project reinforced the importance of deeply understanding user motivations before designing solutions.&rdquo;</p></div>
     </div>
   </div>
+  <aside class="cs-margin">
+    <div class="margin-note"><span class="margin-note__lbl" data-i18n="mn.framing">Problem framing</span><p data-i18n="cs3.mn1">We almost designed around the wrong problem (convenience) until research revealed anxiety as the core blocker.</p></div>
+    <div class="margin-note" style="margin-top:var(--gap-xl)"><span class="margin-note__lbl" data-i18n="mn.diff">Key differentiator</span><p data-i18n="cs3.mn2">The open seed standard was both functional and strategic &mdash; directly addressing competitor lock-in frustration.</p></div>
+    <div class="margin-note" style="margin-top:var(--gap-xl)"><span class="margin-note__lbl" data-i18n="mn.next">What I&rsquo;d do next</span><p data-i18n="cs3.mn3">Validate whether anxiety framing resonates in user interviews, and test price point against willingness-to-pay.</p></div>
+  </aside>
+  </div></div></div>
 </div>
 
 <!-- ABOUT -->
 <div id="page-about" class="page">
   <div class="about-page">
     <div class="about-g">
-      <div>
-        <div class="about-photo"><div class="img-ph">[ assets/profile.jpg &middot; 3:4 ]</div></div>
-      </div>
+      <div><div class="about-photo"><div class="img-ph">[ assets/profile.jpg &middot; 3:4 ]</div></div></div>
       <div>
         <span class="t-overline" style="display:block;margin-bottom:var(--gap-md)" data-i18n="nav.about">About</span>
         <p class="about-intro" data-i18n="about.intro">I&rsquo;m Margaux, a designer who came to UX through marketing strategy, and finds that background more useful every day.</p>
@@ -586,10 +550,8 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}ul,ol{list
             <div>
               <p class="skill-col__lbl" data-i18n="sk.ux">UX Design</p>
               <ul class="skill-col">
-                <li data-i18n="sk.int">User interviews</li>
-                <li data-i18n="sk.wf">Wireframing &amp; prototyping</li>
-                <li data-i18n="sk.ia">Information architecture</li>
-                <li data-i18n="sk.ut">Usability testing</li>
+                <li data-i18n="sk.int">User interviews</li><li data-i18n="sk.wf">Wireframing &amp; prototyping</li>
+                <li data-i18n="sk.ia">Information architecture</li><li data-i18n="sk.ut">Usability testing</li>
                 <li data-i18n="sk.jm">Journey mapping</li>
               </ul>
             </div>
@@ -600,10 +562,8 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}ul,ol{list
             <div>
               <p class="skill-col__lbl" data-i18n="sk.strat">Strategy</p>
               <ul class="skill-col">
-                <li data-i18n="sk.ca">Competitive analysis</li>
-                <li data-i18n="sk.bp">Brand positioning</li>
-                <li data-i18n="sk.mr">Market research</li>
-                <li data-i18n="sk.ps">Product strategy</li>
+                <li data-i18n="sk.ca">Competitive analysis</li><li data-i18n="sk.bp">Brand positioning</li>
+                <li data-i18n="sk.mr">Market research</li><li data-i18n="sk.ps">Product strategy</li>
                 <li data-i18n="sk.cs">Campaign strategy</li>
               </ul>
             </div>
@@ -628,7 +588,7 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}ul,ol{list
         <p class="t-body-sm" style="max-width:320px" data-i18n="contact.sub">Open to junior roles or internships, in person or remote. I respond within 24 hours.</p>
       </div>
       <div>
-        <a href="/cdn-cgi/l/email-protection#335e52415452464b5a40511d43415c73545e525a5f1d505c5e" class="cl-row"><span class="cl-lbl">Email</span><span class="cl-val"><span class="__cf_email__" data-cfemail="e38e82918482969b8a9081cd93918ca3848e828a8fcd808c8e">[email&#160;protected]</span></span><span class="cl-arr">&nearr;</span></a>
+        <a href="mailto:margauxisb.pro@gmail.com" class="cl-row"><span class="cl-lbl">Email</span><span class="cl-val">margauxisb.pro@gmail.com</span><span class="cl-arr">&nearr;</span></a>
         <a href="https://www.linkedin.com/in/margaux-isambert/" target="_blank" rel="noopener noreferrer" class="cl-row"><span class="cl-lbl">LinkedIn</span><span class="cl-val">linkedin.com/in/margaux-isambert</span><span class="cl-arr">&nearr;</span></a>
         <a href="https://read.cv/margaux" target="_blank" rel="noopener noreferrer" class="cl-row"><span class="cl-lbl">Read.cv</span><span class="cl-val">read.cv/margaux</span><span class="cl-arr">&nearr;</span></a>
       </div>
@@ -636,7 +596,7 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}ul,ol{list
   </div>
 </div>
 
-</div>
+</div><!-- /page-wrap -->
 
 <footer class="site-footer">
   <div class="footer-in">
@@ -644,13 +604,18 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}ul,ol{list
     <span class="footer-note" data-i18n="footer.note">Junior UX/UI Designer &middot; 2026</span>
   </div>
 </footer>
-
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
+/* ================================================================
+   TRANSLATIONS
+================================================================ */
 const T={
-en:{'nav.work':'Work','nav.about':'About','nav.contact':'Contact','hero.avail':'Available · 2026','hero.role':'Junior UX/UI Designer','hero.h1':'Designing experiences<br/>that make <em>business sense</em>.','hero.sub':'A Junior UX/UI Designer with a marketing strategy background. Working at the intersection of user research, product thinking, and brand logic.','chip.based':'Based','chip.basedV':'France · EU','chip.tools':'Tools','chip.open':'Open to','chip.openV':'Junior roles · Internships','hero.cta1':'View my work','hero.cta2':'About me','hero.scroll':'Scroll','cs1.dot':'Interior Design PM','cs2.dot':'YUHWA K-Beauty','cs3.dot':"Botani’Kube",'tag.uxcs':'UX Case Study','tag.res':'Research','tag.proto':'Prototype','tag.solo':'Solo','tag.concept':'Concept project','tag.brand':'Brand Strategy','tag.uxr':'UX Research','tag.pc':'Product Concept','tag.ps':'Product Strategy','tag.mr':'Market Research','tag.t4':'Team · 4 people','work.h':'Projects','work.sub':'UX design and brand strategy, each project structured around a problem to solve, documented in full.','cs1.title':'Interior Design Project Management Platform','cs1.wdesc':'Studio observation, informal interviews, competitive analysis, through to a mid-fidelity Figma prototype. Centred on client transparency and reducing designer administrative overhead.','cs2.title':'YUHWA — K-Beauty Brand Concept','cs2.wdesc':'Competitive analysis and positioning gap identification for a premium K-beauty brand bridging Korean skincare heritage with scientific credibility.','cs3.title':"Botani’Kube — Smart Indoor Garden",'cs3.wdesc':'Market gap analysis, user insight research, and product concept for an autonomous smart garden addressing plant care anxiety in urban households.','cs.back':'← Back to work','m.role':'My Role','m.tools':'Tools','m.type':'Type','m.dur':'Duration','m.team':'Team','s.ctx':'Context','s.prob':'Problem Statement','s.res':'Research & Discovery','s.ins':'Key Insights','s.sol':'Solution','s.ref':'Reflection & Learnings','s.dev':'Concept Development','mn.start':'Starting point','mn.dec':'Design decision','mn.next':'Next step','mn.opp':'The opportunity','mn.tens':'Key tension','mn.framing':'Problem framing','mn.diff':'Key differentiator','cs1.role':'UX Researcher & Designer','cs1.type':'Concept / Portfolio','cs1.s1h':'The landscape','cs1.s1p1':'Interior architecture projects involve many actors: designers, clients, contractors, suppliers and manufacturers. Projects can last several months and require constant coordination between all stakeholders.','cs1.s1p2':'During my work in an interior design studio, I observed that most project management still happens through a mix of <strong>phone calls, emails, spreadsheets and scattered documents</strong>. This creates delays, lost information and unnecessary stress for both designers and clients.','cs1.s1p3':'This project explores how a <strong>digital platform could centralise project communication</strong>, giving both the studio and the client a clearer view of the project at every stage.','cs1.s2h':'The core tension','cs1.s2p':'Interior designers need to coordinate complex projects involving many stakeholders, but the tools they currently use are fragmented and not adapted to their workflow.','cs1.st1':'Designers spend a large portion of their time chasing information instead of designing','cs1.st2':'Clients lack visibility on project progress and often feel uncertain during long projects','cs1.st3':'Information gets lost between emails, calls and documents','cs1.pq':'“The challenge: design a simple, transparent platform that improves designer–client communication while reducing studio administrative overhead.”','cs1.s3h':'Understanding the problem space','cs1.m1t':'Studio observation','cs1.m1d':'Designers constantly switching between phone calls, emails and spreadsheets; clients requesting updates; supplier information hard to track.','cs1.m2t':'Informal interviews','cs1.m2d':'Conversations about daily coordination challenges, communication with clients, supplier tracking, and pain points in current workflows.','cs1.m3t':'Competitive analysis','cs1.m3d':'Asana, Monday, Notion, Houzz Pro, Studio Designer. Most are either <strong>too generic</strong> or not designed for direct client access.','cs1.s4h':'What the research revealed','cs1.i1':'<strong>Communication with clients consumes a large amount of time.</strong> Many interactions could be simplified with direct access to updates.','cs1.i2':'<strong>Information is scattered across multiple tools.</strong> Fragmentation increases risk of miscommunication and delays.','cs1.i3':'<strong>Clients want reassurance during long projects.</strong> Transparency plays a key role in building trust.','cs1.i4':'<strong>Designers want to focus on creativity.</strong> Any solution should reduce administrative overhead, not add to it.','cs1.s5h':'The proposed platform','cs1.mod1t':'Appointment system','cs1.mod1d':'Simple scheduling flow — clients book their first consultation without contacting the studio manually.','cs1.mod2t':'Project dashboard','cs1.mod2d':'Personalised project page with overview, moodboards, current phase, and milestones.','cs1.mod3t':'Project timeline','cs1.mod3d':'Visual timeline of project stages — improving transparency and reducing uncertainty for clients.','cs1.s6h':'What I learned','cs1.s6p':'This project showed how <strong>deeply work practices influence product design</strong>. Interior designers care about how their tools reflect their professional image to clients.','cs1.s6q':'“Next steps: testing with more designers, exploring mobile features for on-site updates, designing supplier management, and developing higher fidelity UI.”','cs1.mn1':'Working inside the studio gave me access to real friction — not a hypothetical version of it.','cs1.mn2':'I centred the platform on the client experience because client anxiety was the primary source of unnecessary designer workload.','cs1.mn3':'Supplier management — linking deliveries to the client-facing timeline — is the most complex remaining problem.','cs2.role':'UX Research · Brand Strategy · Product Concept','cs2.dur':'6 weeks','cs2.type':'Academic / Concept project','cs2.s1h':'The landscape','cs2.s1p1':'K-beauty has become one of the most influential segments in the global skincare industry. Western consumers increasingly seek Korean skincare products for their innovation, layered routines and ingredient philosophy.','cs2.s1p2':'However, many brands entering Western markets face a challenge: balancing cultural authenticity with scientific credibility. This project explored how a new brand could occupy that space.','cs2.s2h':'The core tension','cs2.pq':'“The challenge: design a brand concept that bridges Korean ingredient heritage with credible scientific validation — without losing either dimension.”','cs2.s3h':'What the research revealed','cs2.i1':'<strong>Western consumers seek authenticity.</strong> Traditional ingredients and rituals are part of the perceived value.','cs2.i2':'<strong>Scientific credibility builds trust.</strong> Clinical validation and dermatological research play a key role.','cs2.i3':'<strong>Brand identity shapes perceived product quality.</strong> A coherent brand universe is essential in the premium skincare market.','cs2.s4h':'YUHWA (유화)','cs2.s4p':'YUHWA draws on the Korean word for softness and harmony. The concept centres on balance between traditional Korean herbal medicine (Hanbang) and modern dermatological science.','cs2.mod1t':'Product philosophy','cs2.mod1d':'Hanbang ingredients + dermatological research = cultural depth and scientific credibility in one.','cs2.mod2t':'Product architecture','cs2.mod2d':'A three-product ritual that simplifies the skincare routine while keeping the layered Korean skincare philosophy intact.','cs2.mod3t':'Visual identity','cs2.mod3d':'Muted natural palette, editorial typography, minimal packaging, bilingual brand language. Refined, calm, culturally grounded.','cs2.s5h':'What I learned','cs2.s5p1':'Branding is closely linked to user perception and trust. Consumers interpret signals from storytelling, design, and cultural references all at once.','cs2.s5p2':'The hardest challenge: translating Korean cultural elements without flattening or appropriating them for a Western audience.','cs2.mn1':'The positioning map was the most clarifying tool — seeing where every major brand sat made the gap immediately visible.','cs2.mn2':'Balancing cultural authenticity with Western legibility, without flattening cultural nuance, was the hardest design challenge.','cs2.mn3':'Test the brand concept with both Korean and Western consumers to see whether cultural signals land as intended.','cs3.role':'Market Research · Product Strategy','cs3.team':'4 people','cs3.dur':'6 weeks','cs3.s1h':'The landscape','cs3.s1p1':'Urban lifestyles increasingly limit access to outdoor space. Indoor gardening products have emerged as a way for city residents to reconnect with plants, even in small apartments.','cs3.s1p2':'Yet many consumers remain hesitant — not because of lack of interest, but because they’re afraid of failing.','cs3.s2h':'The plant anxiety paradox','cs3.pq':'“A key reason people don’t buy plants is the fear of not being able to keep them alive. The challenge: how might a product remove that anxiety entirely?”','cs3.s3h':'What the research revealed','cs3.i1':'<strong>Plant care anxiety is a major barrier.</strong> Automation directly reduces this stress.','cs3.i2':'<strong>Consumers dislike restrictive ecosystems.</strong> Users prefer flexibility over proprietary capsule lock-in.','cs3.i3':'<strong>Sustainability matters.</strong> Reducing waste can be a strong differentiator for eco-conscious urban consumers.','cs3.s4h':"Botani’Kube",'cs3.s4p':'A smart indoor garden designed for urban apartments, integrating automated features to simplify plant care entirely.','cs3.mod1t':'Automated features','cs3.mod1d':'Automatic irrigation, integrated LED grow lighting, and smart humidity sensors — no daily maintenance needed.','cs3.mod2t':'Open seed ecosystem','cs3.mod2d':'Standard seeds rather than proprietary capsules — more freedom, less brand dependency.','cs3.mod3t':'Sustainability focus','cs3.mod3d':'Integrated compost module for reusing organic kitchen waste — supporting a more circular growing approach.','cs3.s5h':'What I learned','cs3.s5p':'The most important insight was the role of <strong>problem framing</strong>. We initially approached this as a convenience product. Research revealed the real barrier was emotional anxiety — a fundamentally different problem to solve.','cs3.s5q':'“This project reinforced the importance of deeply understanding user motivations before designing solutions.”','cs3.mn1':'We almost designed around the wrong problem (convenience) until research revealed anxiety as the core blocker.','cs3.mn2':'The open seed standard was both functional and strategic — directly addressing competitor lock-in frustration.','cs3.mn3':'Validate whether anxiety framing resonates in user interviews, and test price point against willingness-to-pay.','about.intro':"I’m Margaux, a designer who came to UX through marketing strategy, and finds that background more useful every day.",'about.p1':"I started with graphic arts at Brassart, moved into marketing strategy, and have spent the last year closing the gap toward product design. That non-linear path turns out to be an asset: I understand both the product side and the commercial side, and I know why design decisions have to make business sense, not just user sense.",'about.p2':"I’m finishing a Bachelor’s in Marketing & Communication in France and actively looking for my first Junior UX/UI role. I’m building my practice through self-directed projects focused on UX design and brand strategy.",'about.p3':"I want to join a team where design is taken seriously — with experienced people around me, space to contribute to real decisions, and room to grow.",'about.skills':'Skills & tools','about.cvtxt':'Looking for a Junior UX/UI Designer role with mentorship, real scope to contribute, and room to grow.','about.cvbtn':'Download CV (PDF)','sk.ux':'UX Design','sk.tools':'Tools','sk.strat':'Strategy','sk.int':'User interviews','sk.wf':'Wireframing & prototyping','sk.ia':'Information architecture','sk.ut':'Usability testing','sk.jm':'Journey mapping','sk.ca':'Competitive analysis','sk.bp':'Brand positioning','sk.mr':'Market research','sk.ps':'Product strategy','sk.cs':'Campaign strategy','contact.h':"Let’s <em>collaborate</em>!",'contact.sub':'Open to junior roles or internships, in person or remote. I respond within 24 hours.','footer.note':'Junior UX/UI Designer · 2026'},
-fr:{'nav.work':'Projets','nav.about':'À propos','nav.contact':'Contact','hero.avail':'Disponible · 2026','hero.role':'Designer UX/UI Junior','hero.h1':'Des expériences qui ont du <em>sens business</em>.','hero.sub':"Designer UX/UI Junior avec une formation en stratégie marketing. À l’intersection de la recherche utilisateur, de la réflexion produit et de la logique de marque.",'chip.based':'Basée','chip.basedV':'France · UE','chip.tools':'Outils','chip.open':'Cherche','chip.openV':'Poste junior · Stage','hero.cta1':'Voir mes projets','hero.cta2':'À propos','hero.scroll':'Défiler','cs1.dot':'Gestion projets archi','cs2.dot':'YUHWA K-Beauty','cs3.dot':"Botani’Kube",'tag.uxcs':'Étude de cas UX','tag.res':'Recherche','tag.proto':'Prototype','tag.solo':'Solo','tag.concept':'Projet concept','tag.brand':'Stratégie de marque','tag.uxr':'Recherche UX','tag.pc':'Concept produit','tag.ps':'Stratégie produit','tag.mr':'Étude de marché','tag.t4':'Équipe · 4 pers.','work.h':'Projets','work.sub':"Design UX et stratégie de marque, chaque projet structuré autour d’un problème à résoudre.",'cs1.title':"Plateforme de gestion de projets en architecture intérieure",'cs1.wdesc':"Observation en studio, entretiens informels, analyse concurrentielle, jusqu’à un prototype Figma mi-fidélité. Axé sur la transparence client et la réduction de la charge administrative.",'cs2.title':'YUHWA — Concept de marque K-Beauty','cs2.wdesc':"Analyse concurrentielle et identification d’un positionnement différenciant pour une marque K-beauty premium.",'cs3.title':"Botani’Kube — Jardin intérieur connecté",'cs3.wdesc':"Analyse de marché et concept produit pour un jardin connecté autonome répondant à l’anxiété liée aux soins des plantes.",'cs.back':'← Retour aux projets','m.role':'Mon rôle','m.tools':'Outils','m.type':'Type','m.dur':'Durée','m.team':'Équipe','s.ctx':'Contexte','s.prob':'Problématique','s.res':'Recherche & Découverte','s.ins':'Insights clés','s.sol':'Solution','s.ref':'Réflexion & Apprentissages','s.dev':'Développement du concept','mn.start':'Point de départ','mn.dec':'Décision de conception','mn.next':'Étape suivante','mn.opp':"L’opportunité",'mn.tens':'Tension centrale','mn.framing':'Cadrage du problème','mn.diff':'Différenciateur clé','cs1.role':'Chercheuse UX & Designer','cs1.type':'Projet concept / Portfolio','cs1.s1h':'Le contexte','cs1.s1p1':"Les projets d’architecture intérieure impliquent de nombreux acteurs : designers, clients, artisans, fournisseurs. Les projets durent souvent plusieurs mois.",'cs1.s1p2':"En travaillant dans un studio, j’ai observé que la gestion de projet passe encore par un mélange d’<strong>appels, d’e-mails, de tableurs et de documents dispersés</strong>. Cela génère des retards, des pertes d’information et du stress inutile.",'cs1.s1p3':'Ce projet explore comment une <strong>plateforme numérique pourrait centraliser la communication</strong> et offrir une vision claire à chaque étape.','cs1.s2h':'La tension centrale','cs1.s2p':'Les designers doivent coordonner des projets complexes, mais les outils actuels sont fragmentés et inadaptés.','cs1.st1':"Les designers passent beaucoup de temps à chercher des informations plutôt qu’à créer",'cs1.st2':'Les clients manquent de visibilité et se sentent incertains','cs1.st3':'Les informations se perdent entre e-mails, appels et documents','cs1.pq':'« Le défi : concevoir une plateforme simple et transparente qui améliore la communication designers-clients tout en réduisant la charge administrative. »','cs1.s3h':"Comprendre l’espace problème",'cs1.m1t':'Observation en studio','cs1.m1d':"Designers passant d’un outil à l’autre, clients demandant des mises à jour, informations fournisseurs difficiles à retrouver.",'cs1.m2t':'Entretiens informels','cs1.m2d':"Conversations sur les défis de coordination, la communication avec les clients et les points de friction.",'cs1.m3t':'Analyse concurrentielle','cs1.m3d':'Asana, Monday, Notion, Houzz Pro, Studio Designer : <strong>trop génériques</strong> ou non pensés pour un accès direct par les clients.','cs1.s4h':'Ce que la recherche a révélé','cs1.i1':'<strong>La communication client consomme beaucoup de temps.</strong> Un accès direct aux mises à jour simplifierait de nombreux échanges.','cs1.i2':'<strong>Les informations sont dispersées.</strong> La fragmentation augmente les risques de malentendus.','cs1.i3':'<strong>Les clients veulent être rassurés.</strong> La transparence est clé pour la confiance.','cs1.i4':"<strong>Les designers veulent se concentrer sur la création.</strong> La solution doit réduire la charge administrative, pas l’augmenter.",'cs1.s5h':'La plateforme proposée','cs1.mod1t':'Système de rendez-vous','cs1.mod1d':'Prise de rendez-vous simple sans contacter le studio manuellement.','cs1.mod2t':'Tableau de bord projet','cs1.mod2d':"Page de projet personnalisée : vue d’ensemble, moodboards, phase en cours, jalons.",'cs1.mod3t':'Planning de projet','cs1.mod3d':"Planning visuel des étapes améliorant la transparence et réduisant l’incertitude.",'cs1.s6h':"Ce que j’ai appris",'cs1.s6p':'Ce projet m’a montré comment les <strong>pratiques de travail influencent profondément le design produit</strong>.','cs1.s6q':'« Prochaines étapes : tester avec plus de designers, explorer les fonctionnalités mobiles, développer une UI haute fidélité. »','cs1.mn1':"Travailler dans le studio m’a donné accès à la friction réelle — pas une version hypothétique.",'cs1.mn2':"J’ai centré la plateforme sur l’expérience client car l’anxiété des clients était la principale source de charge inutile.",'cs1.mn3':'La gestion fournisseurs — relier les livraisons au planning visible par le client — est le problème le plus complexe restant.','cs2.role':'Recherche UX · Stratégie de marque · Concept produit','cs2.dur':'6 semaines','cs2.type':'Projet académique / Concept','cs2.s1h':'Le contexte','cs2.s1p1':"La K-beauty est devenue l’un des segments les plus influents de l’industrie mondiale du soin.",'cs2.s1p2':'De nombreuses marques font face au défi de concilier authenticité culturelle et crédibilité scientifique. Ce projet explore comment un nouveau positionnement pourrait occuper cet espace.','cs2.s2h':'La tension centrale','cs2.pq':'« Le défi : concevoir un concept de marque reliant le patrimoine coréen et la validation scientifique — sans sacrifier aucune des deux dimensions. »','cs2.s3h':'Ce que la recherche a révélé','cs2.i1':"<strong>Les consommateurs cherchent l’authenticité.</strong> Les ingrédients et rituels traditionnels font partie de la valeur perçue.",'cs2.i2':'<strong>La crédibilité scientifique crée la confiance.</strong> La validation clinique est clé.','cs2.i3':"<strong>L’identité de marque façonne la qualité perçue.</strong> Un univers cohérent est essentiel.",'cs2.s4h':'YUHWA (유화)','cs2.s4p':'YUHWA, inspiré du mot coréen signifiant douceur et harmonie. Équilibre entre médecine herboriste coréenne (Hanbang) et science dermatologique moderne.','cs2.mod1t':'Philosophie produit','cs2.mod1d':'Ingrédients hanbang + recherche dermatologique = profondeur culturelle et crédibilité scientifique.','cs2.mod2t':'Architecture produit','cs2.mod2d':'Rituel en trois produits simplifiant la routine tout en respectant la philosophie coréenne.','cs2.mod3t':'Identité visuelle','cs2.mod3d':'Palette douce, typographie éditoriale, packaging minimal, langage bilingue. Raffiné, calme, ancré culturellement.','cs2.s5h':"Ce que j’ai appris",'cs2.s5p1':'Le branding est étroitement lié à la perception et à la confiance.','cs2.s5p2':'Traduire des éléments culturels coréens sans les aplatir pour un public occidental a été le défi principal.','cs2.mn1':"La carte de positionnement a rendu l’opportunité immédiatement visible.",'cs2.mn2':'Équilibrer authenticité culturelle et lisibilité occidentale a été le défi le plus difficile.','cs2.mn3':'Tester le concept avec des consommateurs coréens et occidentaux pour vérifier si les signaux culturels fonctionnent.','cs3.role':'Étude de marché · Stratégie produit','cs3.team':'4 personnes','cs3.dur':'6 semaines','cs3.s1h':'Le contexte','cs3.s1p1':"Les modes de vie urbains limitent l’accès aux espaces extérieurs. Le jardinage intérieur permet aux citadins de renouer avec les plantes.",'cs3.s1p2':"Pourtant beaucoup restent hésitants — non par manque d’intérêt, mais par peur d’échouer.",'cs3.s2h':"Le paradoxe de l’anxiété liée aux plantes",'cs3.pq':'« La principale raison pour ne pas acheter de plantes : la peur de ne pas pouvoir les maintenir en vie. Le défi : comment un produit pourrait-il éliminer cette anxiété ? »','cs3.s3h':'Ce que la recherche a révélé','cs3.i1':"<strong>L’anxiété liée aux soins est un frein majeur.</strong> L’automatisation réduit directement ce stress.",'cs3.i2':'<strong>Les écosystèmes fermés sont mal perçus.</strong> Les utilisateurs préfèrent la flexibilité.','cs3.i3':'<strong>La durabilité compte.</strong> Réduire les déchets peut différencier le produit.','cs3.s4h':"Botani’Kube",'cs3.s4p':'Jardin intérieur connecté conçu pour les appartements urbains, avec des fonctionnalités automatisées.','cs3.mod1t':'Fonctionnalités automatisées','cs3.mod1d':'Irrigation automatique, éclairage LED intégré, capteurs intelligents — aucun entretien quotidien.','cs3.mod2t':'Écosystème de graines ouvert','cs3.mod2d':'Graines standard plutôt que capsules propriétaires — plus de liberté.','cs3.mod3t':'Démarche durable','cs3.mod3d':'Module de compostage intégré pour réutiliser les déchets organiques.','cs3.s5h':"Ce que j’ai appris",'cs3.s5p':"L’insight le plus important a été le rôle du <strong>cadrage du problème</strong>. Nous avons d’abord traité cela comme un produit de confort. La recherche a révélé que le vrai frein était l’anxiété émotionnelle.",'cs3.s5q':"« Ce projet a renforcé l’importance de comprendre les motivations profondes avant de concevoir des solutions. »",'cs3.mn1':"Nous avons failli concevoir autour du mauvais problème jusqu’à ce que la recherche révèle l’anxiété comme frein central.",'cs3.mn2':'Le standard de graines ouvert était à la fois fonctionnel et stratégique.','cs3.mn3':"Valider si le cadrage autour de l’anxiété résonne en entretiens, et tester le prix.",'about.intro':"Je suis Margaux, une designer venue à l’UX par la stratégie marketing.",'about.p1':"J’ai commencé par les arts graphiques à Brassart, puis la stratégie marketing. Ce parcours non linéaire est un atout : je comprends à la fois le versant produit et commercial.",'about.p2':"Je termine un Bachelor en Marketing & Communication et cherche mon premier poste de Designer UX/UI Junior.",'about.p3':"Je veux rejoindre une équipe où le design est pris au sérieux — avec des personnes expérimentées et la possibilité de progresser.",'about.skills':'Compétences & outils','about.cvtxt':"À la recherche d’un poste Designer UX/UI Junior avec mentorat et possibilité d’évolution.",'about.cvbtn':'Télécharger le CV (PDF)','sk.ux':'Design UX','sk.tools':'Outils','sk.strat':'Stratégie','sk.int':'Entretiens utilisateurs','sk.wf':'Wireframing & prototypage','sk.ia':"Architecture de l’information",'sk.ut':"Tests d’utilisabilité",'sk.jm':'Journey mapping','sk.ca':'Analyse concurrentielle','sk.bp':'Positionnement de marque','sk.mr':'Étude de marché','sk.ps':'Stratégie produit','sk.cs':'Stratégie de campagne','contact.h':'Collaborons <em>ensemble</em> !','contact.sub':'Ouverte à des postes juniors ou stages. Je réponds sous 24 heures.','footer.note':'Designer UX/UI Junior · 2026'}
+en:{'nav.work':'Work','nav.about':'About','nav.contact':'Contact','hero.avail':'Available · 2026','hero.role':'Junior UX/UI Designer','hero.h1':'Designing experiences<br/>that make <em>business sense</em>.','hero.sub':'A Junior UX/UI Designer with a marketing strategy background. Working at the intersection of user research, product thinking, and brand logic.','chip.based':'Based','chip.basedV':'France · EU','chip.tools':'Tools','chip.open':'Open to','chip.openV':'Junior roles · Internships','hero.cta1':'View my work','hero.cta2':'About me','hero.scroll':'Scroll','cs1.dot':'Interior Design PM','cs2.dot':'YUHWA K-Beauty','cs3.dot':"Botani'Kube",'tag.uxcs':'UX Case Study','tag.res':'Research','tag.proto':'Prototype','tag.solo':'Solo','tag.concept':'Concept project','tag.brand':'Brand Strategy','tag.uxr':'UX Research','tag.pc':'Product Concept','tag.ps':'Product Strategy','tag.mr':'Market Research','tag.t4':'Team · 4 people','work.h':'Projects','work.sub':'UX design and brand strategy, each project structured around a problem to solve, documented in full.','cs1.title':'Interior Design Project Management Platform','cs1.wdesc':'Studio observation, informal interviews, competitive analysis, through to a mid-fidelity Figma prototype. Centred on client transparency and reducing designer administrative overhead.','cs2.title':'YUHWA — K-Beauty Brand Concept','cs2.wdesc':'Competitive analysis and positioning gap identification for a premium K-beauty brand bridging Korean skincare heritage with scientific credibility.','cs3.title':"Botani'Kube — Smart Indoor Garden",'cs3.wdesc':'Market gap analysis, user insight research, and product concept for an autonomous smart garden addressing plant care anxiety in urban households.','cs.back':'← Back to work','m.role':'My Role','m.tools':'Tools','m.type':'Type','m.dur':'Duration','m.team':'Team','s.ctx':'Context','s.prob':'Problem Statement','s.res':'Research & Discovery','s.ins':'Key Insights','s.sol':'Solution','s.ref':'Reflection & Learnings','s.dev':'Concept Development','mn.start':'Starting point','mn.dec':'Design decision','mn.next':'Next step','mn.opp':'The opportunity','mn.tens':'Key tension','mn.framing':'Problem framing','mn.diff':'Key differentiator','cs1.role':'UX Researcher & Designer','cs1.type':'Concept / Portfolio','cs1.s1h':'The landscape','cs1.s1p1':'Interior architecture projects involve many actors: designers, clients, contractors, suppliers and manufacturers. Projects can last several months and require constant coordination between all stakeholders.','cs1.s1p2':'During my work in an interior design studio, I observed that most project management still happens through a mix of <strong>phone calls, emails, spreadsheets and scattered documents</strong>. This creates delays, lost information and unnecessary stress for both designers and clients.','cs1.s1p3':'This project explores how a <strong>digital platform could centralise project communication</strong>, giving both the studio and the client a clearer view of the project at every stage.','cs1.s2h':'The core tension','cs1.s2p':'Interior designers need to coordinate complex projects involving many stakeholders, but the tools they currently use are fragmented and not adapted to their workflow.','cs1.st1':'Designers spend a large portion of their time chasing information instead of designing','cs1.st2':'Clients lack visibility on project progress and often feel uncertain during long projects','cs1.st3':'Information gets lost between emails, calls and documents','cs1.pq':'"The challenge: design a simple, transparent platform that improves designer–client communication while reducing studio administrative overhead."','cs1.s3h':'Understanding the problem space','cs1.m1t':'Studio observation','cs1.m1d':'Designers constantly switching between phone calls, emails and spreadsheets; clients requesting updates; supplier information hard to track.','cs1.m2t':'Informal interviews','cs1.m2d':'Conversations about daily coordination challenges, communication with clients, supplier tracking, and pain points in current workflows.','cs1.m3t':'Competitive analysis','cs1.m3d':'Asana, Monday, Notion, Houzz Pro, Studio Designer. Most are either <strong>too generic</strong> or not designed for direct client access.','cs1.s4h':'What the research revealed','cs1.i1':'<strong>Communication with clients consumes a large amount of time.</strong> Many interactions could be simplified with direct access to updates.','cs1.i2':'<strong>Information is scattered across multiple tools.</strong> Fragmentation increases risk of miscommunication and delays.','cs1.i3':'<strong>Clients want reassurance during long projects.</strong> Transparency plays a key role in building trust.','cs1.i4':'<strong>Designers want to focus on creativity.</strong> Any solution should reduce administrative overhead, not add to it.','cs1.s5h':'The proposed platform','cs1.mod1t':'Appointment system','cs1.mod1d':'Simple scheduling flow — clients book their first consultation without contacting the studio manually.','cs1.mod2t':'Project dashboard','cs1.mod2d':'Personalised project page with overview, moodboards, current phase, and milestones.','cs1.mod3t':'Project timeline','cs1.mod3d':'Visual timeline of project stages — improving transparency and reducing uncertainty for clients.','cs1.s6h':'What I learned','cs1.s6p':'This project showed how <strong>deeply work practices influence product design</strong>. Interior designers care about how their tools reflect their professional image to clients.','cs1.s6q':'"Next steps: testing with more designers, exploring mobile features for on-site updates, designing supplier management, and developing higher fidelity UI."','cs1.mn1':'Working inside the studio gave me access to real friction — not a hypothetical version of it.','cs1.mn2':'I centred the platform on the client experience because client anxiety was the primary source of unnecessary designer workload.','cs1.mn3':'Supplier management — linking deliveries to the client-facing timeline — is the most complex remaining problem.','cs2.role':'UX Research · Brand Strategy · Product Concept','cs2.dur':'6 weeks','cs2.type':'Academic / Concept project','cs2.s1h':'The landscape','cs2.s1p1':'K-beauty has become one of the most influential segments in the global skincare industry. Western consumers increasingly seek Korean skincare products for their innovation, layered routines and ingredient philosophy.','cs2.s1p2':'However, many brands entering Western markets face a challenge: balancing cultural authenticity with scientific credibility. This project explored how a new brand could occupy that space.','cs2.s2h':'The core tension','cs2.pq':'"The challenge: design a brand concept that bridges Korean ingredient heritage with credible scientific validation — without losing either dimension."','cs2.s3h':'What the research revealed','cs2.i1':'<strong>Western consumers seek authenticity.</strong> Traditional ingredients and rituals are part of the perceived value.','cs2.i2':'<strong>Scientific credibility builds trust.</strong> Clinical validation and dermatological research play a key role.','cs2.i3':'<strong>Brand identity shapes perceived product quality.</strong> A coherent brand universe is essential in the premium skincare market.','cs2.s4h':'YUHWA (유화)','cs2.s4p':'YUHWA draws on the Korean word for softness and harmony. The concept centres on balance between traditional Korean herbal medicine (Hanbang) and modern dermatological science.','cs2.mod1t':'Product philosophy','cs2.mod1d':'Hanbang ingredients + dermatological research = cultural depth and scientific credibility in one.','cs2.mod2t':'Product architecture','cs2.mod2d':'A three-product ritual that simplifies the skincare routine while keeping the layered Korean skincare philosophy intact.','cs2.mod3t':'Visual identity','cs2.mod3d':'Muted natural palette, editorial typography, minimal packaging, bilingual brand language. Refined, calm, culturally grounded.','cs2.s5h':'What I learned','cs2.s5p1':'Branding is closely linked to user perception and trust. Consumers interpret signals from storytelling, design, and cultural references all at once.','cs2.s5p2':'The hardest challenge: translating Korean cultural elements without flattening or appropriating them for a Western audience.','cs2.mn1':'The positioning map was the most clarifying tool — seeing where every major brand sat made the gap immediately visible.','cs2.mn2':'Balancing cultural authenticity with Western legibility, without flattening cultural nuance, was the hardest design challenge.','cs2.mn3':'Test the brand concept with both Korean and Western consumers to see whether cultural signals land as intended.','cs3.role':'Market Research · Product Strategy','cs3.team':'4 people','cs3.dur':'6 weeks','cs3.s1h':'The landscape','cs3.s1p1':'Urban lifestyles increasingly limit access to outdoor space. Indoor gardening products have emerged as a way for city residents to reconnect with plants, even in small apartments.','cs3.s1p2':"Yet many consumers remain hesitant — not because of lack of interest, but because they're afraid of failing.",'cs3.s2h':'The plant anxiety paradox','cs3.pq':'"A key reason people don’t buy plants is the fear of not being able to keep them alive. The challenge: how might a product remove that anxiety entirely?"','cs3.s3h':'What the research revealed','cs3.i1':'<strong>Plant care anxiety is a major barrier.</strong> Automation directly reduces this stress.','cs3.i2':'<strong>Consumers dislike restrictive ecosystems.</strong> Users prefer flexibility over proprietary capsule lock-in.','cs3.i3':'<strong>Sustainability matters.</strong> Reducing waste can be a strong differentiator for eco-conscious urban consumers.','cs3.s4h':"Botani'Kube",'cs3.s4p':'A smart indoor garden designed for urban apartments, integrating automated features to simplify plant care entirely.','cs3.mod1t':'Automated features','cs3.mod1d':'Automatic irrigation, integrated LED grow lighting, and smart humidity sensors — no daily maintenance needed.','cs3.mod2t':'Open seed ecosystem','cs3.mod2d':'Standard seeds rather than proprietary capsules — more freedom, less brand dependency.','cs3.mod3t':'Sustainability focus','cs3.mod3d':'Integrated compost module for reusing organic kitchen waste — supporting a more circular growing approach.','cs3.s5h':'What I learned','cs3.s5p':'The most important insight was the role of <strong>problem framing</strong>. We initially approached this as a convenience product. Research revealed the real barrier was emotional anxiety — a fundamentally different problem to solve.','cs3.s5q':'"This project reinforced the importance of deeply understanding user motivations before designing solutions."','cs3.mn1':'We almost designed around the wrong problem (convenience) until research revealed anxiety as the core blocker.','cs3.mn2':'The open seed standard was both functional and strategic — directly addressing competitor lock-in frustration.','cs3.mn3':'Validate whether anxiety framing resonates in user interviews, and test price point against willingness-to-pay.','about.intro':"I’m Margaux, a designer who came to UX through marketing strategy, and finds that background more useful every day.",'about.p1':"I started with graphic arts at Brassart, moved into marketing strategy, and have spent the last year closing the gap toward product design. That non-linear path turns out to be an asset: I understand both the product side and the commercial side, and I know why design decisions have to make business sense, not just user sense.",'about.p2':"I’m finishing a Bachelor’s in Marketing & Communication in France and actively looking for my first Junior UX/UI role. I’m building my practice through self-directed projects focused on UX design and brand strategy.",'about.p3':"I want to join a team where design is taken seriously — with experienced people around me, space to contribute to real decisions, and room to grow.",'about.skills':'Skills & tools','about.cvtxt':'Looking for a Junior UX/UI Designer role with mentorship, real scope to contribute, and room to grow.','about.cvbtn':'Download CV (PDF)','sk.ux':'UX Design','sk.tools':'Tools','sk.strat':'Strategy','sk.int':'User interviews','sk.wf':'Wireframing & prototyping','sk.ia':'Information architecture','sk.ut':'Usability testing','sk.jm':'Journey mapping','sk.ca':'Competitive analysis','sk.bp':'Brand positioning','sk.mr':'Market research','sk.ps':'Product strategy','sk.cs':'Campaign strategy','contact.h':"Let’s <em>collaborate</em>!",'contact.sub':'Open to junior roles or internships, in person or remote. I respond within 24 hours.','footer.note':'Junior UX/UI Designer · 2026'},
+fr:{'nav.work':'Projets','nav.about':'À propos','nav.contact':'Contact','hero.avail':'Disponible · 2026','hero.role':'Designer UX/UI Junior','hero.h1':'Des expériences qui ont du <em>sens business</em>.','hero.sub':"Designer UX/UI Junior avec une formation en stratégie marketing. À l’intersection de la recherche utilisateur, de la réflexion produit et de la logique de marque.",'chip.based':'Basée','chip.basedV':'France · UE','chip.tools':'Outils','chip.open':'Cherche','chip.openV':'Poste junior · Stage','hero.cta1':'Voir mes projets','hero.cta2':'À propos','hero.scroll':'Défiler','cs1.dot':'Gestion projets archi','cs2.dot':'YUHWA K-Beauty','cs3.dot':"Botani'Kube",'tag.uxcs':'Étude de cas UX','tag.res':'Recherche','tag.proto':'Prototype','tag.solo':'Solo','tag.concept':'Projet concept','tag.brand':'Stratégie de marque','tag.uxr':'Recherche UX','tag.pc':'Concept produit','tag.ps':'Stratégie produit','tag.mr':'Étude de marché','tag.t4':'Équipe · 4 pers.','work.h':'Projets','work.sub':"Design UX et stratégie de marque, chaque projet structuré autour d’un problème à résoudre.",'cs1.title':'Plateforme de gestion de projets en architecture intérieure','cs1.wdesc':"Observation en studio, entretiens informels, analyse concurrentielle, jusqu’à un prototype Figma mi-fidélité. Axé sur la transparence client et la réduction de la charge administrative.",'cs2.title':'YUHWA — Concept de marque K-Beauty','cs2.wdesc':"Analyse concurrentielle et identification d’un positionnement différenciant pour une marque K-beauty premium.",'cs3.title':"Botani'Kube — Jardin intérieur connecté",'cs3.wdesc':"Analyse de marché et concept produit pour un jardin connecté autonome répondant à l’anxiété liée aux soins des plantes.",'cs.back':'← Retour aux projets','m.role':'Mon rôle','m.tools':'Outils','m.type':'Type','m.dur':'Durée','m.team':'Équipe','s.ctx':'Contexte','s.prob':'Problématique','s.res':'Recherche & Découverte','s.ins':'Insights clés','s.sol':'Solution','s.ref':'Réflexion & Apprentissages','s.dev':'Développement du concept','mn.start':'Point de départ','mn.dec':'Décision de conception','mn.next':'Étape suivante','mn.opp':"L’opportunité",'mn.tens':'Tension centrale','mn.framing':'Cadrage du problème','mn.diff':'Différenciateur clé','cs1.role':'Chercheuse UX & Designer','cs1.type':'Projet concept / Portfolio','cs1.s1h':'Le contexte','cs1.s1p1':"Les projets d’architecture intérieure impliquent de nombreux acteurs : designers, clients, artisans, fournisseurs. Les projets durent souvent plusieurs mois.",'cs1.s1p2':"En travaillant dans un studio, j’ai observé que la gestion de projet passe encore par un mélange d’<strong>appels, d’e-mails, de tableurs et de documents dispersés</strong>. Cela génère des retards, des pertes d’information et du stress inutile.",'cs1.s1p3':'Ce projet explore comment une <strong>plateforme numérique pourrait centraliser la communication</strong> et offrir une vision claire à chaque étape.','cs1.s2h':'La tension centrale','cs1.s2p':'Les designers doivent coordonner des projets complexes, mais les outils actuels sont fragmentés et inadaptés.','cs1.st1':"Les designers passent beaucoup de temps à chercher des informations plutôt qu’à créer",'cs1.st2':'Les clients manquent de visibilité et se sentent incertains','cs1.st3':'Les informations se perdent entre e-mails, appels et documents','cs1.pq':'« Le défi : concevoir une plateforme simple et transparente qui améliore la communication designers-clients tout en réduisant la charge administrative. »','cs1.s3h':"Comprendre l’espace problème",'cs1.m1t':'Observation en studio','cs1.m1d':"Designers passant d’un outil à l’autre, clients demandant des mises à jour, informations fournisseurs difficiles à retrouver.",'cs1.m2t':'Entretiens informels','cs1.m2d':"Conversations sur les défis de coordination, la communication avec les clients et les points de friction.",'cs1.m3t':'Analyse concurrentielle','cs1.m3d':'Asana, Monday, Notion, Houzz Pro, Studio Designer : <strong>trop génériques</strong> ou non pensés pour un accès direct par les clients.','cs1.s4h':'Ce que la recherche a révélé','cs1.i1':'<strong>La communication client consomme beaucoup de temps.</strong> Un accès direct aux mises à jour simplifierait de nombreux échanges.','cs1.i2':'<strong>Les informations sont dispersées.</strong> La fragmentation augmente les risques de malentendus.','cs1.i3':'<strong>Les clients veulent être rassurés.</strong> La transparence est clé pour la confiance.','cs1.i4':"<strong>Les designers veulent se concentrer sur la création.</strong> La solution doit réduire la charge administrative, pas l’augmenter.",'cs1.s5h':'La plateforme proposée','cs1.mod1t':'Système de rendez-vous','cs1.mod1d':'Prise de rendez-vous simple sans contacter le studio manuellement.','cs1.mod2t':'Tableau de bord projet','cs1.mod2d':"Page de projet personnalisée : vue d’ensemble, moodboards, phase en cours, jalons.",'cs1.mod3t':'Planning de projet','cs1.mod3d':"Planning visuel des étapes améliorant la transparence et réduisant l’incertitude.",'cs1.s6h':"Ce que j’ai appris",'cs1.s6p':'Ce projet m’a montré comment les <strong>pratiques de travail influencent profondément le design produit</strong>.','cs1.s6q':'« Prochaines étapes : tester avec plus de designers, explorer les fonctionnalités mobiles, développer une UI haute fidélité. »','cs1.mn1':"Travailler dans le studio m’a donné accès à la friction réelle — pas une version hypothétique.",'cs1.mn2':"J’ai centré la plateforme sur l’expérience client car l’anxiété des clients était la principale source de charge inutile.",'cs1.mn3':'La gestion fournisseurs — relier les livraisons au planning visible par le client — est le problème le plus complexe restant.','cs2.role':'Recherche UX · Stratégie de marque · Concept produit','cs2.dur':'6 semaines','cs2.type':'Projet académique / Concept','cs2.s1h':'Le contexte','cs2.s1p1':"La K-beauty est devenue l’un des segments les plus influents de l’industrie mondiale du soin.",'cs2.s1p2':'De nombreuses marques font face au défi de concilier authenticité culturelle et crédibilité scientifique. Ce projet explore comment un nouveau positionnement pourrait occuper cet espace.','cs2.s2h':'La tension centrale','cs2.pq':'« Le défi : concevoir un concept de marque reliant le patrimoine coréen et la validation scientifique — sans sacrifier aucune des deux dimensions. »','cs2.s3h':'Ce que la recherche a révélé','cs2.i1':"<strong>Les consommateurs cherchent l’authenticité.</strong> Les ingrédients et rituels traditionnels font partie de la valeur perçue.",'cs2.i2':'<strong>La crédibilité scientifique crée la confiance.</strong> La validation clinique est clé.','cs2.i3':"<strong>L’identité de marque façonne la qualité perçue.</strong> Un univers cohérent est essentiel.",'cs2.s4h':'YUHWA (유화)','cs2.s4p':'YUHWA, inspiré du mot coréen signifiant douceur et harmonie. Équilibre entre médecine herboriste coréenne (Hanbang) et science dermatologique moderne.','cs2.mod1t':'Philosophie produit','cs2.mod1d':'Ingrédients hanbang + recherche dermatologique = profondeur culturelle et crédibilité scientifique.','cs2.mod2t':'Architecture produit','cs2.mod2d':'Rituel en trois produits simplifiant la routine tout en respectant la philosophie coréenne.','cs2.mod3t':'Identité visuelle','cs2.mod3d':'Palette douce, typographie éditoriale, packaging minimal, langage bilingue. Raffiné, calme, ancré culturellement.','cs2.s5h':"Ce que j’ai appris",'cs2.s5p1':'Le branding est étroitement lié à la perception et à la confiance.','cs2.s5p2':'Traduire des éléments culturels coréens sans les aplatir pour un public occidental a été le défi principal.','cs2.mn1':"La carte de positionnement a rendu l’opportunité immédiatement visible.",'cs2.mn2':'Équilibrer authenticité culturelle et lisibilité occidentale a été le défi le plus difficile.','cs2.mn3':'Tester le concept avec des consommateurs coréens et occidentaux pour vérifier si les signaux culturels fonctionnent.','cs3.role':'Étude de marché · Stratégie produit','cs3.team':'4 personnes','cs3.dur':'6 semaines','cs3.s1h':'Le contexte','cs3.s1p1':"Les modes de vie urbains limitent l’accès aux espaces extérieurs. Le jardinage intérieur permet aux citadins de renouer avec les plantes.",'cs3.s1p2':"Pourtant beaucoup restent hésitants — non par manque d’intérêt, mais par peur d’échouer.",'cs3.s2h':"Le paradoxe de l’anxiété liée aux plantes",'cs3.pq':'« La principale raison pour ne pas acheter de plantes : la peur de ne pas pouvoir les maintenir en vie. Le défi : comment un produit pourrait-il éliminer cette anxiété ? »','cs3.s3h':'Ce que la recherche a révélé','cs3.i1':"<strong>L’anxiété liée aux soins est un frein majeur.</strong> L’automatisation réduit directement ce stress.",'cs3.i2':'<strong>Les écosystèmes fermés sont mal perçus.</strong> Les utilisateurs préfèrent la flexibilité.','cs3.i3':'<strong>La durabilité compte.</strong> Réduire les déchets peut différencier le produit.','cs3.s4h':"Botani'Kube",'cs3.s4p':'Jardin intérieur connecté conçu pour les appartements urbains, avec des fonctionnalités automatisées.','cs3.mod1t':'Fonctionnalités automatisées','cs3.mod1d':'Irrigation automatique, éclairage LED intégré, capteurs intelligents — aucun entretien quotidien.','cs3.mod2t':'Écosystème de graines ouvert','cs3.mod2d':'Graines standard plutôt que capsules propriétaires — plus de liberté.','cs3.mod3t':'Démarche durable','cs3.mod3d':'Module de compostage intégré pour réutiliser les déchets organiques.','cs3.s5h':"Ce que j’ai appris",'cs3.s5p':"L’insight le plus important a été le rôle du <strong>cadrage du problème</strong>. Nous avons d’abord traité cela comme un produit de confort. La recherche a révélé que le vrai frein était l’anxiété émotionnelle.",'cs3.s5q':"« Ce projet a renforcé l’importance de comprendre les motivations profondes avant de concevoir des solutions. »",'cs3.mn1':"Nous avons failli concevoir autour du mauvais problème jusqu’à ce que la recherche révèle l’anxiété comme frein central.",'cs3.mn2':'Le standard de graines ouvert était à la fois fonctionnel et stratégique.','cs3.mn3':"Valider si le cadrage autour de l’anxiété résonne en entretiens, et tester le prix.",'about.intro':"Je suis Margaux, une designer venue à l’UX par la stratégie marketing.",'about.p1':"J’ai commencé par les arts graphiques à Brassart, puis la stratégie marketing. Ce parcours non linéaire est un atout : je comprends à la fois le versant produit et commercial.",'about.p2':"Je termine un Bachelor en Marketing & Communication et cherche mon premier poste de Designer UX/UI Junior.",'about.p3':"Je veux rejoindre une équipe où le design est pris au sérieux — avec des personnes expérimentées et la possibilité de progresser.",'about.skills':'Compétences & outils','about.cvtxt':"A la recherche d’un poste Designer UX/UI Junior avec mentorat et possibilité d’évolution.",'about.cvbtn':'Télécharger le CV (PDF)','sk.ux':'Design UX','sk.tools':'Outils','sk.strat':'Stratégie','sk.int':'Entretiens utilisateurs','sk.wf':'Wireframing & prototypage','sk.ia':"Architecture de l’information",'sk.ut':"Tests d’utilisabilité",'sk.jm':'Journey mapping','sk.ca':'Analyse concurrentielle','sk.bp':'Positionnement de marque','sk.mr':'Étude de marché','sk.ps':'Stratégie produit','sk.cs':'Stratégie de campagne','contact.h':'Collaborons <em>ensemble</em> !','contact.sub':'Ouverte à des postes juniors ou stages. Je réponds sous 24 heures.','footer.note':'Designer UX/UI Junior · 2026'}
 };
 
+/* ================================================================
+   LANGUAGE
+================================================================ */
 let lang='en';
 function applyLang(l){
   lang=l;const d=T[l];if(!d)return;
@@ -659,6 +624,9 @@ function applyLang(l){
   document.querySelectorAll('.lang-btn').forEach(b=>{const a=b.dataset.lang===l;b.classList.toggle('active',a);b.setAttribute('aria-pressed',a);});
 }
 
+/* ================================================================
+   NAVIGATION
+================================================================ */
 const PAGES={home:'page-home',work:'page-work',about:'page-about',contact:'page-contact',cs1:'page-cs1',cs2:'page-cs2',cs3:'page-cs3'};
 const TOP_NAV=new Set(['work','about','contact']);
 const WORK_SUB=new Set(['cs1','cs2','cs3']);
@@ -667,15 +635,23 @@ let current='home';
 function go(key){
   if(!PAGES[key])return;
   current=key;
-  Object.values(PAGES).forEach(id=>{const el=document.getElementById(id);if(el){el.style.display='none';el.classList.remove('active');}});
+  Object.values(PAGES).forEach(id=>{
+    const el=document.getElementById(id);
+    if(el){el.style.display='none';el.classList.remove('active');}
+  });
   const el=document.getElementById(PAGES[key]);
   el.style.display='block';void el.offsetWidth;el.classList.add('active');
   window.scrollTo({top:0,behavior:'instant'});
   const nk=TOP_NAV.has(key)?key:WORK_SUB.has(key)?'work':null;
   document.querySelectorAll('.nav-link').forEach(b=>b.classList.toggle('active',b.dataset.page===nk));
   const nav=document.getElementById('site-nav');
-  if(key==='home'){nav.classList.remove('opaque');requestAnimationFrame(()=>setTimeout(drawLines,80));}
-  else{nav.classList.add('opaque');}
+  if(key==='home'){
+    nav.classList.remove('opaque');
+    // Small delay lets the page render before we measure positions
+    requestAnimationFrame(()=>setTimeout(drawLines,120));
+  } else {
+    nav.classList.add('opaque');
+  }
 }
 
 window.addEventListener('scroll',()=>{
@@ -683,34 +659,103 @@ window.addEventListener('scroll',()=>{
   document.getElementById('site-nav').classList.toggle('scrolled',window.scrollY>40);
 },{passive:true});
 
+/* ================================================================
+   DRAW LINES — FIXED
+   
+   The key insight: all measurements use getBoundingClientRect()
+   which gives positions in VIEWPORT coordinates. We then convert
+   to the hero element's LOCAL coordinate system (since the SVG
+   sits inside .hero with inset:0).
+   
+   The lines connect each dot's center to a fixed point on the
+   character body (specified as % of hero width/height via
+   data-char-x and data-char-y attributes).
+================================================================ */
 function drawLines(){
-  const svg=document.getElementById('hero-svg');if(!svg)return;
+  const svg=document.getElementById('hero-svg');
+  if(!svg)return;
+  
+  const hero=document.querySelector('.hero');
+  if(!hero)return;
+  
+  // Clear previous lines
   svg.innerHTML='';
-  const hero=document.querySelector('.hero');if(!hero)return;
-  const hr=hero.getBoundingClientRect();
+  
+  // Hero bounding rect in viewport space
+  const heroRect=hero.getBoundingClientRect();
+  
   document.querySelectorAll('.cdot').forEach(node=>{
-    const ring=node.querySelector('.cdot__ring');if(!ring)return;
-    const rr=ring.getBoundingClientRect();
-    const x1=rr.left+rr.width/2-hr.left;
-    const y1=rr.top+rr.height/2-hr.top;
-    const cx=parseFloat(node.dataset.charX||87);
-    const cy=parseFloat(node.dataset.charY||52);
-    const x2=hr.width*cx/100;
-    const y2=hr.height*cy/100;
+    const ring=node.querySelector('.cdot__ring');
+    if(!ring)return;
+    
+    // Dot center in viewport space
+    const dotRect=ring.getBoundingClientRect();
+    const dotCX=dotRect.left+dotRect.width/2;
+    const dotCY=dotRect.top+dotRect.height/2;
+    
+    // Convert to hero-local coordinates (SVG coordinate space)
+    const x1=dotCX-heroRect.left;
+    const y1=dotCY-heroRect.top;
+    
+    // Character endpoint: data-char-x and data-char-y are
+    // percentages of the hero's dimensions
+    const charXpct=parseFloat(node.dataset.charX||82);
+    const charYpct=parseFloat(node.dataset.charY||55);
+    const x2=heroRect.width*(charXpct/100);
+    const y2=heroRect.height*(charYpct/100);
+    
+    // Create line
     const line=document.createElementNS('http://www.w3.org/2000/svg','line');
-    line.setAttribute('x1',x1);line.setAttribute('y1',y1);
-    line.setAttribute('x2',x2);line.setAttribute('y2',y2);
-    line.setAttribute('class','cline');line.dataset.nid=node.id;
+    line.setAttribute('x1',x1.toFixed(1));
+    line.setAttribute('y1',y1.toFixed(1));
+    line.setAttribute('x2',x2.toFixed(1));
+    line.setAttribute('y2',y2.toFixed(1));
+    line.setAttribute('class','cline');
+    line.dataset.nid=node.id;
     svg.appendChild(line);
-    node.addEventListener('mouseenter',()=>{svg.querySelectorAll('.cline').forEach(l=>l.classList.toggle('hot',l.dataset.nid===node.id));});
-    node.addEventListener('mouseleave',()=>{svg.querySelectorAll('.cline').forEach(l=>l.classList.remove('hot'));});
+    
+    // Hover: highlight matching line
+    const enter=()=>svg.querySelectorAll('.cline').forEach(l=>l.classList.toggle('hot',l.dataset.nid===node.id));
+    const leave=()=>svg.querySelectorAll('.cline').forEach(l=>l.classList.remove('hot'));
+    node.removeEventListener('mouseenter',node._enter||enter);
+    node.removeEventListener('mouseleave',node._leave||leave);
+    node._enter=enter;node._leave=leave;
+    node.addEventListener('mouseenter',enter);
+    node.addEventListener('mouseleave',leave);
   });
 }
 
-window.addEventListener('resize',()=>{if(current==='home')drawLines();});
+/* Redraw on resize */
+let resizeTimer;
+window.addEventListener('resize',()=>{
+  clearTimeout(resizeTimer);
+  resizeTimer=setTimeout(()=>{if(current==='home')drawLines();},120);
+},{passive:true});
 
+/* ================================================================
+   INIT
+================================================================ */
 document.addEventListener('DOMContentLoaded',()=>{
+  // Wire page navigation
   document.querySelectorAll('[data-page]').forEach(el=>{
     el.addEventListener('click',()=>go(el.dataset.page));
     if(el.tagName!=='BUTTON'&&el.tagName!=='A'){
-      el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go(el.datas
+      el.addEventListener('keydown',e=>{
+        if(e.key==='Enter'||e.key===' '){e.preventDefault();go(el.dataset.page);}
+      });
+    }
+  });
+  
+  // Wire language switcher
+  document.querySelectorAll('.lang-btn').forEach(b=>b.addEventListener('click',()=>applyLang(b.dataset.lang)));
+  
+  // Start on home, apply English
+  go('home');
+  applyLang('en');
+  
+  // Draw lines after full render (fonts + layout complete)
+  requestAnimationFrame(()=>setTimeout(drawLines,200));
+});
+</script>
+</body>
+</html>
