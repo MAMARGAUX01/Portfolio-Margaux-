@@ -111,7 +111,7 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}ul,ol{list
 .wli__desc{font-size:.875rem;color:var(--text-3);line-height:1.65;max-width:500px}
 .wli__arr{font-size:.95rem;color:var(--text-3);transition:transform .18s var(--ease),color .15s;padding-top:.5rem}
 /* CASE STUDY */
-.cs-cover{width:100%;aspect-ratio:16/6;overflow:hidden;background:var(--bg-tint)}
+.cs-cover{width:100%;overflow:hidden;background:var(--bg-tint)}
 .cs-cover .img-ph{width:100%;height:100%;border-radius:0;border:none;font-size:.75rem}
 .cs-hdr{padding:var(--gap-xl) 0 var(--gap-lg);border-bottom:1px solid var(--border)}
 .cs-hdr .container--narrow{display:grid;grid-template-columns:1fr 240px;gap:var(--gap-xl);align-items:start}
@@ -350,11 +350,10 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}ul,ol{list
 </div>
 
 <!-- CASE STUDY 1 -->
-<div id="page-cs1" class="page">
-  <div class="cs-cover"><img src="assets/cs1-cover.jpg" alt="Interior Design PM cover" style="width:100%;height:280px;object-fit:cover;"></div>
-  <div class="cs-hdr">
-    <div class="container--narrow">
-      <div>
+<div class="cs-cover">
+  <img src="assets/cs1-cover.jpg" alt="Interior Design PM cover" 
+       style="width:100%;height:auto;display:block;">
+</div>
         <button class="cs-back" data-page="work" data-i18n="cs.back">&larr; Back to work</button>
         <div class="cs-tags">
           <span class="tag tag--accent" data-i18n="tag.uxcs">UX Case Study</span>
