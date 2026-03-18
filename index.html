@@ -624,7 +624,7 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}ul,ol{list
         </div>
         <div class="cv-block">
           <p data-i18n="about.cvtxt">Looking for a master in UX/UI design with mentorship, real scope to contribute, and room to grow.</p>
-          <a href="https://raw.githubusercontent.com/MAMARGAUX01/Portfolio-Margaux-/main/assets/cv-margaux-isambert.pdf" class="btn btn--primary" target="_blank" rel="noopener noreferrer" download="cv-margaux-isambert.pdf" data-i18n="about.cvbtn">Download CV (PDF)</a>
+          <button class="btn btn--primary" onclick="downloadCV()" data-i18n="about.cvbtn">Download CV (PDF)</button>
         </div>
       </div>
     </div>
@@ -732,6 +732,22 @@ document.addEventListener('DOMContentLoaded',()=>{
   document.querySelectorAll('.lang-btn').forEach(b=>b.addEventListener('click',()=>applyLang(b.dataset.lang)));
   go('home');applyLang('en');
   requestAnimationFrame(()=>setTimeout(drawLines,160));
+});
+
+function downloadCV(){
+  fetch('https://raw.githubusercontent.com/MAMARGAUX01/Portfolio-Margaux-/main/assets/cv-margaux-isambert.pdf')
+    .then(r=>r.blob())
+    .then(blob=>{
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');
+      a.href=url;
+      a.download='cv-margaux-isambert.pdf';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+}
 });
 </script>
 </body>
